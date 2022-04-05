@@ -7,6 +7,31 @@ GO
 USE RentalApp_DB;
 GO
 
+CREATE TABLE [Color] (
+  [ColorID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
+  [ColorName] [varchar](50) NULL
+);
+GO
+
+CREATE TABLE [Model] (
+  [ModelID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
+  [ModelName] [varchar](50) NULL,
+  [Year] [INT] NULL
+);
+GO
+
+CREATE TABLE [VehicleType] (
+  [VehicleTypeID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
+  [Type] [varchar](50) NULL
+);
+GO
+
+CREATE TABLE [Brand] (
+  [BrandID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
+  [BrandName] [varchar](50) NULL
+);
+GO
+
 CREATE TABLE dbo.[Vehicle] (
   [VIN] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
   [BrandID] [INT] NOT NULL,
@@ -16,7 +41,7 @@ CREATE TABLE dbo.[Vehicle] (
   [NumPassengers] [INT] NULL,
   [DayRate] [FLOAT] NULL,
   [HourlyRate] [FLOAT] NULL,
-  [YearPurchased] [YEAR] NULL,
+  [YearPurchased] [INT] NULL,
   [LastService] [DATE] NULL,
   [Transmission] [varchar](50) NULL,
   [Millieage] [FLOAT] NULL,
@@ -40,43 +65,41 @@ CREATE TABLE dbo.[Vehicle] (
 );
 GO
 
-CREATE TABLE [Color] (
-  [ColorID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [ColorName] [varchar](50) NULL
+CREATE TABLE [Status] (
+  [StatusId] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
+  [Status] [varchar](50) NULL
 );
 GO
 
-CREATE TABLE [Model] (
-  [ModelID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [ModelName] [varchar](50) NULL,
-  [Year] [YEAR] NULL
+CREATE TABLE [Review] (
+  [ReviewID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
+  [Date] [DATE] NULL,
+  [Message] [varchar](500) NULL,
+  [Rating] [INT] NULL,
 );
 GO
 
-CREATE TABLE [VehicleType] (
-  [VehicleTypeID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [Type] [varchar](50) NULL
+CREATE TABLE [PaymentMethod] (
+  [PaymentMethodID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
+  [MethodName] [varchar](50) NULL
 );
 GO
 
-CREATE TABLE [Brand] (
-  [BrandID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [BrandName] [varchar](50) NULL
+CREATE TABLE [Client] (
+  [ClientID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
+  [Name] [varchar](100) NOT NULL,
+  [Surname] [varchar](100) NULL,
+  [e-Mail] [varchar](100) NULL,
+  [Phone] [numeric] NOT NULL
 );
 GO
 
-CREATE TABLE [Rental-Vehicle] (
-  [RentalVehicleID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [RentalID] [INT] NOT NULL,
-  [VIN] [INT] NOT NULL,
-  
-  CONSTRAINT [FK_Rental-Vehicle.RentalID]
-    FOREIGN KEY ([RentalID])
-      REFERENCES [Rental]([RentalID]),
-      
-  CONSTRAINT [FK_Rental-Vehicle.VIN]
-    FOREIGN KEY ([VIN])
-      REFERENCES [Vehicle]([VIN])
+CREATE TABLE [Employee] (
+  [EmployeeID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
+  [Name] [varchar](100) NOT NULL,
+  [Surname] [varchar](100) NULL,
+  [Phone] [numeric] NOT NULL,
+  [DateOfEmployment] [DATE] NOT NULL
 );
 GO
 
@@ -104,6 +127,21 @@ CREATE TABLE [Rental] (
 );
 GO
 
+CREATE TABLE [Rental-Vehicle] (
+  [RentalVehicleID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
+  [RentalID] [INT] NOT NULL,
+  [VIN] [INT] NOT NULL,
+  
+  CONSTRAINT [FK_Rental-Vehicle.RentalID]
+    FOREIGN KEY ([RentalID])
+      REFERENCES [Rental]([RentalID]),
+      
+  CONSTRAINT [FK_Rental-Vehicle.VIN]
+    FOREIGN KEY ([VIN])
+      REFERENCES [Vehicle]([VIN])
+);
+GO
+
 CREATE TABLE [Rental-Client] (
   [RentalClientID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
   [RentalID] [INT] NOT NULL,
@@ -116,15 +154,6 @@ CREATE TABLE [Rental-Client] (
   CONSTRAINT [FK_Rental-Client.ClientID]
     FOREIGN KEY ([ClientID])
       REFERENCES [Client]([ClientID])
-);
-GO
-
-CREATE TABLE [Client] (
-  [ClientID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [Name] [varchar](100) NOT NULL,
-  [Surname] [varchar](100) NULL,
-  [e-Mail] [varchar](100) NULL,
-  [Phone] [numeric] NOT NULL
 );
 GO
 
@@ -142,33 +171,3 @@ CREATE TABLE [Rental-Employee] (
       REFERENCES [Employee]([EmployeeID])
 );
 GO
-
-CREATE TABLE [Employee] (
-  [EmployeeID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [Name] [varchar](100) NOT NULL,
-  [Surname] [varchar](100) NULL,
-  [Phone] [numeric] NOT NULL,
-  [DateOfEmployment] [DATE] NOT NULL
-);
-GO
-
-CREATE TABLE [Status] (
-  [StatusId] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [Status] [varchar](50) NULL
-);
-GO
-
-CREATE TABLE [Review] (
-  [ReviewID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [Date] [DATE] NULL,
-  [Message] [varchar](500) NULL,
-  [Rating] [INT] NULL,
-);
-GO
-
-CREATE TABLE [PaymentMethod] (
-  [PaymentMethodID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [MethodName] [varchar](50) NULL
-);
-GO
-
