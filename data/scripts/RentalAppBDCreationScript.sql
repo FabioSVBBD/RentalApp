@@ -36,50 +36,40 @@ CREATE TABLE dbo.[Vehicle] (
       
   CONSTRAINT [FK_Vehicle.ColorID]
     FOREIGN KEY ([ColorID])
-      REFERENCES [Color]([ColorID]),
+      REFERENCES [Color]([ColorID])
 );
 GO
 
 CREATE TABLE [Color] (
-  [ColorID] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [ColorName] [varchar](50) NULL,
-  CONSTRAINT [FK_Color.ColorID]
-    FOREIGN KEY ([ColorID])
-      REFERENCES [Vehicle]([ColorID])
+  [ColorID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
+  [ColorName] [varchar](50) NULL
 );
 GO
 
 CREATE TABLE [Model] (
-  [ModelID] IDENTITY (1,1) NOT NULL PRIMARY KEY,
+  [ModelID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
   [ModelName] [varchar](50) NULL,
-  [Year] [YEAR] NULL,
-  CONSTRAINT [FK_Model.ModelID]
-    FOREIGN KEY ([ModelID])
-      REFERENCES [Vehicle]([ModelID])
+  [Year] [YEAR] NULL
 );
 GO
 
 CREATE TABLE [VehicleType] (
-  [VehicleTypeID] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [Type] [varchar](50) NULL,
-  CONSTRAINT [FK_VehicleType.VehicleTypeID]
-    FOREIGN KEY ([VehicleTypeID])
-      REFERENCES [Vehicle]([VehicleTypeID])
+  [VehicleTypeID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
+  [Type] [varchar](50) NULL
 );
 GO
 
 CREATE TABLE [Brand] (
-  [BrandID] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [BrandName] [varchar](50) NULL,
-  CONSTRAINT [FK_Brand.BrandID]
-    FOREIGN KEY ([BrandID])
-      REFERENCES [Vehicle]([BrandID])
+  [BrandID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
+  [BrandName] [varchar](50) NULL
 );
 GO
 
 CREATE TABLE [Rental-Vehicle] (
+  [RentalVehicleID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
   [RentalID] [INT] NOT NULL,
   [VIN] [INT] NOT NULL,
+  
   CONSTRAINT [FK_Rental-Vehicle.RentalID]
     FOREIGN KEY ([RentalID])
       REFERENCES [Rental]([RentalID]),
@@ -91,7 +81,7 @@ CREATE TABLE [Rental-Vehicle] (
 GO
 
 CREATE TABLE [Rental] (
-  [RentalID] IDENTITY (1,1) NOT NULL PRIMARY KEY,
+  [RentalID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
   [ReviewID] [INT] NULL,
   [PaymentMethodID] [INT] NULL,
   [StatusID] [INT] NOT NULL,
@@ -99,15 +89,26 @@ CREATE TABLE [Rental] (
   [StartDate] [DATE] NOT NULL,
   [EndDate] [DATE] NULL,
   [Balance] [FLOAT] NOT NULL,
-  CONSTRAINT [FK_Rental.RentalID]
-    FOREIGN KEY ([RentalID])
-      REFERENCES [Rental-Vehicle]([RentalID])
+  
+  CONSTRAINT [FK_Rental.ReviewID]
+    FOREIGN KEY ([ReviewID])
+      REFERENCES [Review]([ReviewID]),
+      
+  CONSTRAINT [FK_Rental.PaymentMethodID]
+    FOREIGN KEY ([PaymentMethodID])
+      REFERENCES [PaymentMethod]([PaymentMethodID]),
+  
+  CONSTRAINT [FK_Rental.StatusID]
+    FOREIGN KEY ([StatusID])
+      REFERENCES [Status]([StatusID])
 );
 GO
 
 CREATE TABLE [Rental-Client] (
+  [RentalClientID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
   [RentalID] [INT] NOT NULL,
   [ClientID] [INT] NOT NULL,
+  
   CONSTRAINT [FK_Rental-Client.RentalID]
     FOREIGN KEY ([RentalID])
       REFERENCES [Rental]([RentalID]),
@@ -119,20 +120,19 @@ CREATE TABLE [Rental-Client] (
 GO
 
 CREATE TABLE [Client] (
-  [ClientID] IDENTITY (1,1) NOT NULL PRIMARY KEY,
+  [ClientID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
   [Name] [varchar](100) NOT NULL,
   [Surname] [varchar](100) NULL,
   [e-Mail] [varchar](100) NULL,
-  [Phone] [numeric] NOT NULL,
-  CONSTRAINT [FK_Client.ClientID]
-    FOREIGN KEY ([ClientID])
-      REFERENCES [Rental-Client]([ClientID])
+  [Phone] [numeric] NOT NULL
 );
 GO
 
 CREATE TABLE [Rental-Employee] (
+  [RentalEmployeeID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
   [RentalID] [INT] NOT NULL,
   [EmployeeID] [INT] NOT NULL,
+  
   CONSTRAINT [FK_Rental-Employee.RentalID]
     FOREIGN KEY ([RentalID])
       REFERENCES [Rental]([RentalID]),
@@ -143,31 +143,31 @@ CREATE TABLE [Rental-Employee] (
 );
 GO
 
-CREATE TABLE [Client] (
-  [EmployeeID] IDENTITY (1,1) NOT NULL PRIMARY KEY,
+CREATE TABLE [Employee] (
+  [EmployeeID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
   [Name] [varchar](100) NOT NULL,
   [Surname] [varchar](100) NULL,
   [Phone] [numeric] NOT NULL,
-  [DateOfEmployment] [DATE] NOT NULL,
-  CONSTRAINT [FK_Client.EmployeeID]
-    FOREIGN KEY ([EmployeeID])
-      REFERENCES [Rental-Employee]([EmployeeID])
+  [DateOfEmployment] [DATE] NOT NULL
 );
+GO
 
 CREATE TABLE [Status] (
-  [StatusId] IDENTITY (1,1) NOT NULL PRIMARY KEY,
+  [StatusId] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
   [Status] [varchar](50) NULL
 );
+GO
 
 CREATE TABLE [Review] (
-  [ReviewID] IDENTITY (1,1) NOT NULL PRIMARY KEY,
+  [ReviewID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
   [Date] [DATE] NULL,
   [Message] [varchar](500) NULL,
   [Rating] [INT] NULL,
 );
+GO
 
 CREATE TABLE [PaymentMethod] (
-  [PaymentMethodID] IDENTITY (1,1) NOT NULL PRIMARY KEY,
+  [PaymentMethodID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
   [MethodName] [varchar](50) NULL
 );
 GO
