@@ -46,6 +46,7 @@ CREATE TABLE dbo.[Vehicle] (
   [Transmission] [varchar](1) NOT NULL,
   [Mileage] DECIMAL(10, 2) NOT NULL,
   [DepositAmount] DECIMAL(10, 2) NOT NULL,
+	[available] [boolean] NOT NULL
   
   CONSTRAINT [FK_Vehicle.BrandID]
     FOREIGN KEY ([BrandID])
