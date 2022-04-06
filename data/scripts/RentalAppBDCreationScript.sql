@@ -22,7 +22,7 @@ GO
 
 CREATE TABLE [VehicleType] (
   [VehicleTypeID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [Type] [varchar](50) NOT NUL
+  [Type] [varchar](50) NOT NULL
 );
 GO
 
