@@ -56,7 +56,7 @@ CREATE TABLE dbo.[Vehicle] (
   [YearPurchased] [INT] NOT NULL,
   [LastService] [DATE] NOT NULL,
   [Transmission] [varchar](1) NOT NULL,
-  [Millieage] [FLOAT] NOT NULL,
+  [Milleage] [FLOAT] NOT NULL,
   [DepositAmount] [FLOAT] NOT NULL,
   
   CONSTRAINT [FK_Vehicle.BrandID]
@@ -78,7 +78,7 @@ CREATE TABLE dbo.[Vehicle] (
 GO
 
 CREATE TABLE [Status] (
-  [StatusId] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
+  [StatusID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
   [Status] [varchar](50) NULL
 );
 GO
