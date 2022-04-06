@@ -1,7 +1,7 @@
 USE RentalApp_DB;
 GO
 
-CREATE PROCEDURE InsertVehicle
+CREATE PROCEDURE dbo.[InsertVehicle]
 @BrandID int,
 @ModelID int,
 @VehicleTypeID int,
@@ -48,7 +48,7 @@ AS
 	)
 GO
 
-CREATE PROCEDURE [UpdateVehicle]
+CREATE PROCEDURE dbo.[UpdateVehicle]
 @VIN int,
 @BrandID int,
 @ModelID int,
@@ -82,7 +82,7 @@ AS
 	WHERE @VIN = [VIN]
 GO
 
-CREATE PROCEDURE getVehicles
+CREATE PROCEDURE dbo.[getVehicles]
 AS
 	SELECT 
 		v.VIN, 
