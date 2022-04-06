@@ -9,26 +9,38 @@ GO
 
 CREATE TABLE [Color] (
   [ColorID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [ColorName] [varchar](50) NULL
+  [ColorName] [varchar](50) NOT NULL,
+  
+  CONSTRAINT unqColor 
+        UNIQUE(ColorName)
 );
 GO
 
 CREATE TABLE [Model] (
   [ModelID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [ModelName] [varchar](50) NULL,
-  [Year] [INT] NULL
+  [ModelName] [varchar](50) NOT NULL,
+  [Year] [INT] NULL,
+  
+  CONSTRAINT unqModel
+        UNIQUE(ModelName)
 );
 GO
 
 CREATE TABLE [VehicleType] (
   [VehicleTypeID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [Type] [varchar](50) NULL
+  [Type] [varchar](50) NOT NULL,
+  
+  CONSTRAINT unqType 
+        UNIQUE(Type)
 );
 GO
 
 CREATE TABLE [Brand] (
   [BrandID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [BrandName] [varchar](50) NULL
+  [BrandName] [varchar](50) NOT NULL,
+  
+  CONSTRAINT unqBrand 
+        UNIQUE(BrandName)
 );
 GO
 
@@ -41,11 +53,11 @@ CREATE TABLE dbo.[Vehicle] (
   [NumPassengers] [INT] NULL,
   [DayRate] [FLOAT] NULL,
   [HourlyRate] [FLOAT] NULL,
-  [YearPurchased] [INT] NULL,
-  [LastService] [DATE] NULL,
-  [Transmission] [varchar](50) NULL,
-  [Millieage] [FLOAT] NULL,
-  [DepositAmount] [FLOAT] NULL,
+  [YearPurchased] [INT] NOT NULL,
+  [LastService] [DATE] NOT NULL,
+  [Transmission] [varchar](1) NOT NULL,
+  [Millieage] [FLOAT] NOT NULL,
+  [DepositAmount] [FLOAT] NOT NULL,
   
   CONSTRAINT [FK_Vehicle.BrandID]
     FOREIGN KEY ([BrandID])
@@ -89,8 +101,11 @@ CREATE TABLE [Client] (
   [ClientID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
   [Name] [varchar](100) NOT NULL,
   [Surname] [varchar](100) NULL,
-  [e-Mail] [varchar](100) NULL,
-  [Phone] [numeric] NOT NULL
+  [Email] [varchar](100) NOT NULL,
+  [Phone] [numeric] NOT NULL,
+  
+  CONSTRAINT unqEmail 
+        UNIQUE(Email)
 );
 GO
 
@@ -106,11 +121,11 @@ GO
 CREATE TABLE [Rental] (
   [RentalID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
   [ReviewID] [INT] NULL,
-  [PaymentMethodID] [INT] NULL,
+  [PaymentMethodID] [INT] NOT NULL,
   [StatusID] [INT] NOT NULL,
   [Address] [varchar](500) NOT NULL,
-  [StartDate] [DATE] NOT NULL,
-  [EndDate] [DATE] NULL,
+  [StartDate] [DATETIME] NOT NULL,
+  [EndDate] [DATETIME] NULL,
   [Balance] [FLOAT] NOT NULL,
   
   CONSTRAINT [FK_Rental.ReviewID]
