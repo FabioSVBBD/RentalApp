@@ -44,7 +44,7 @@ CREATE TABLE dbo.[Vehicle] (
   [YearPurchased] [INT] NOT NULL,
   [LastService] [DATE] NOT NULL,
   [Transmission] [varchar](1) NOT NULL,
-  [Milleage] DECIMAL(10, 2) NOT NULL,
+  [Mileage] DECIMAL(10, 2) NOT NULL,
   [DepositAmount] DECIMAL(10, 2) NOT NULL,
   
   CONSTRAINT [FK_Vehicle.BrandID]
