@@ -9,38 +9,26 @@ GO
 
 CREATE TABLE [Color] (
   [ColorID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [ColorName] [varchar](50) NOT NULL,
-  
-  CONSTRAINT unqColor 
-        UNIQUE(ColorName)
+  [ColorName] [varchar](50) NOT NULL
 );
 GO
 
 CREATE TABLE [Model] (
   [ModelID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
   [ModelName] [varchar](50) NOT NULL,
-  [Year] [INT] NULL,
-  
-  CONSTRAINT unqModel
-        UNIQUE(ModelName)
+  [Year] [INT] NOT NULL
 );
 GO
 
 CREATE TABLE [VehicleType] (
   [VehicleTypeID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [Type] [varchar](50) NOT NULL,
-  
-  CONSTRAINT unqType 
-        UNIQUE(Type)
+  [Type] [varchar](50) NOT NUL
 );
 GO
 
 CREATE TABLE [Brand] (
   [BrandID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [BrandName] [varchar](50) NOT NULL,
-  
-  CONSTRAINT unqBrand 
-        UNIQUE(BrandName)
+  [BrandName] [varchar](50) NOT NULL
 );
 GO
 
@@ -50,14 +38,14 @@ CREATE TABLE dbo.[Vehicle] (
   [ModelID] [INT] NOT NULL,
   [VehicleTypeID] [INT] NOT NULL,
   [ColorID] [INT] NOT NULL,
-  [NumPassengers] [INT] NULL,
-  [DayRate] [FLOAT] NULL,
-  [HourlyRate] [FLOAT] NULL,
+  [NumSeats] [INT] NOT NULL,
+  [DayRate] DECIMAL(10, 2) NOT NULL,
+  [HourlyRate] DECIMAL(10, 2) NOT NULL,
   [YearPurchased] [INT] NOT NULL,
   [LastService] [DATE] NOT NULL,
   [Transmission] [varchar](1) NOT NULL,
-  [Milleage] [FLOAT] NOT NULL,
-  [DepositAmount] [FLOAT] NOT NULL,
+  [Milleage] DECIMAL(10, 2) NOT NULL,
+  [DepositAmount] DECIMAL(10, 2) NOT NULL,
   
   CONSTRAINT [FK_Vehicle.BrandID]
     FOREIGN KEY ([BrandID])
@@ -79,28 +67,28 @@ GO
 
 CREATE TABLE [Status] (
   [StatusID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [Status] [varchar](50) NULL
+  [Status] [varchar](50) NOT NULL
 );
 GO
 
 CREATE TABLE [Review] (
   [ReviewID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [Date] [DATE] NULL,
-  [Message] [varchar](500) NULL,
-  [Rating] [INT] NULL,
+  [Date] [DATE] NOT NULL,
+  [Message] [varchar](500) NOT NULL,
+  [Rating] [INT] NOT NULL,
 );
 GO
 
 CREATE TABLE [PaymentMethod] (
   [PaymentMethodID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [MethodName] [varchar](50) NULL
+  [MethodName] [varchar](50) NOT NULL
 );
 GO
 
 CREATE TABLE [Client] (
   [ClientID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
   [Name] [varchar](100) NOT NULL,
-  [Surname] [varchar](100) NULL,
+  [Surname] [varchar](100) NOT NULL,
   [Email] [varchar](100) NOT NULL,
   [Phone] [numeric] NOT NULL,
   
@@ -112,7 +100,7 @@ GO
 CREATE TABLE [Employee] (
   [EmployeeID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
   [Name] [varchar](100) NOT NULL,
-  [Surname] [varchar](100) NULL,
+  [Surname] [varchar](100) NOT NULL,
   [Phone] [numeric] NOT NULL,
   [DateOfEmployment] [DATE] NOT NULL
 );
@@ -120,13 +108,13 @@ GO
 
 CREATE TABLE [Rental] (
   [RentalID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [ReviewID] [INT] NULL,
+  [ReviewID] [INT] NOT NULL,
   [PaymentMethodID] [INT] NOT NULL,
   [StatusID] [INT] NOT NULL,
   [Address] [varchar](500) NOT NULL,
   [StartDate] [DATETIME] NOT NULL,
-  [EndDate] [DATETIME] NULL,
-  [Balance] [FLOAT] NOT NULL,
+  [EndDate] [DATETIME] NOT NULL,
+  [Balance] DECIMAL(10, 2) NOT NULL,
   
   CONSTRAINT [FK_Rental.ReviewID]
     FOREIGN KEY ([ReviewID])
