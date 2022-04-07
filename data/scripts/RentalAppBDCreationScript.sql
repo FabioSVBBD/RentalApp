@@ -46,7 +46,7 @@ CREATE TABLE dbo.[Vehicle] (
   [Transmission] [varchar](1) NOT NULL,
   [Mileage] DECIMAL(10, 2) NOT NULL,
   [DepositAmount] DECIMAL(10, 2) NOT NULL,
-	[Available] [BIT] NOT NULL
+  [Available] [BIT] NOT NULL
   
   CONSTRAINT [FK_Vehicle.BrandID]
     FOREIGN KEY ([BrandID])
@@ -109,6 +109,9 @@ GO
 
 CREATE TABLE [Rental] (
   [RentalID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
+  [ClientID] [INT] NOT NULL,
+  [EmployeeID] [INT] NOT NULL,
+  [VIN] [INT] NOT NULL,
   [ReviewID] [INT] NOT NULL,
   [PaymentMethodID] [INT] NOT NULL,
   [StatusID] [INT] NOT NULL,
@@ -116,62 +119,30 @@ CREATE TABLE [Rental] (
   [StartDate] [DATETIME] NOT NULL,
   [EndDate] [DATETIME] NOT NULL,
   [Balance] DECIMAL(10, 2) NOT NULL,
-  
+
+  CONSTRAINT [FK_Rental.ClientID]
+    FOREIGN KEY ([ClientID])
+      REFERENCES [Client]([ClientID]),
+
+  CONSTRAINT [FK_Rental.EmployeeID]
+    FOREIGN KEY ([EmployeeID])
+      REFERENCES [Employee]([EmployeeID]),
+
+  CONSTRAINT [FK_Rental.VIN]
+    FOREIGN KEY ([VIN])
+      REFERENCES [Vehicle]([VIN]),
+
   CONSTRAINT [FK_Rental.ReviewID]
     FOREIGN KEY ([ReviewID])
       REFERENCES [Review]([ReviewID]),
-      
+
   CONSTRAINT [FK_Rental.PaymentMethodID]
     FOREIGN KEY ([PaymentMethodID])
       REFERENCES [PaymentMethod]([PaymentMethodID]),
-  
+
   CONSTRAINT [FK_Rental.StatusID]
     FOREIGN KEY ([StatusID])
       REFERENCES [Status]([StatusID])
 );
 GO
 
-CREATE TABLE [Rental-Vehicle] (
-  [RentalVehicleID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [RentalID] [INT] NOT NULL,
-  [VIN] [INT] NOT NULL,
-  
-  CONSTRAINT [FK_Rental-Vehicle.RentalID]
-    FOREIGN KEY ([RentalID])
-      REFERENCES [Rental]([RentalID]),
-      
-  CONSTRAINT [FK_Rental-Vehicle.VIN]
-    FOREIGN KEY ([VIN])
-      REFERENCES [Vehicle]([VIN])
-);
-GO
-
-CREATE TABLE [Rental-Client] (
-  [RentalClientID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [RentalID] [INT] NOT NULL,
-  [ClientID] [INT] NOT NULL,
-  
-  CONSTRAINT [FK_Rental-Client.RentalID]
-    FOREIGN KEY ([RentalID])
-      REFERENCES [Rental]([RentalID]),
-  
-  CONSTRAINT [FK_Rental-Client.ClientID]
-    FOREIGN KEY ([ClientID])
-      REFERENCES [Client]([ClientID])
-);
-GO
-
-CREATE TABLE [Rental-Employee] (
-  [RentalEmployeeID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [RentalID] [INT] NOT NULL,
-  [EmployeeID] [INT] NOT NULL,
-  
-  CONSTRAINT [FK_Rental-Employee.RentalID]
-    FOREIGN KEY ([RentalID])
-      REFERENCES [Rental]([RentalID]),
-      
-  CONSTRAINT [FK_Rental-Employee.EmployeeID]
-    FOREIGN KEY ([EmployeeID])
-      REFERENCES [Employee]([EmployeeID])
-);
-GO
