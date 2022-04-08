@@ -83,7 +83,7 @@ CREATE TABLE [Review] (
   [Rating] [INT] NOT NULL,
 
   CONSTRAINT RatingRange
-	CHECK (Rating BETWEEN 1 AND 5)
+	  CHECK (Rating BETWEEN 1 AND 5)
 );
 GO
 
@@ -152,4 +152,3 @@ CREATE TABLE [Rental] (
       REFERENCES [Vehicle]([VehicleID])
 );
 GO
-    
