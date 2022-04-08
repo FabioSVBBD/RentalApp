@@ -1,8 +1,6 @@
 USE master;
 GO
 
-DROP DATABASE RentalApp_DB;
-
 CREATE DATABASE RentalApp_DB;
 GO
 
@@ -83,6 +81,9 @@ CREATE TABLE [Review] (
   [Date] [DATE] NOT NULL,
   [Message] [varchar](500) NOT NULL,
   [Rating] [INT] NOT NULL,
+
+  CONSTRAINT RatingRange
+	CHECK (Rating BETWEEN 1 AND 5)
 );
 GO
 
@@ -97,7 +98,7 @@ CREATE TABLE [Client] (
   [Name] [varchar](100) NOT NULL,
   [Surname] [varchar](100) NOT NULL,
   [Email] [varchar](100) NOT NULL,
-  [Phone] [numeric] NOT NULL,
+  [Phone] [varchar](20) NOT NULL,
   
   CONSTRAINT unqEmail 
         UNIQUE(Email)
@@ -108,7 +109,7 @@ CREATE TABLE [Employee] (
   [EmployeeID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
   [Name] [varchar](100) NOT NULL,
   [Surname] [varchar](100) NOT NULL,
-  [Phone] [numeric] NOT NULL,
+  [Phone] [varchar](20) NOT NULL,
   [DateOfEmployment] [DATE] NOT NULL
 );
 GO
@@ -151,3 +152,4 @@ CREATE TABLE [Rental] (
       REFERENCES [Vehicle]([VehicleID])
 );
 GO
+    
