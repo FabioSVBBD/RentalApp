@@ -49,7 +49,7 @@ CREATE TABLE dbo.[Vehicle] (
   [Transmission] [varchar](1) NOT NULL,
   [Mileage] DECIMAL(10, 2) NOT NULL,
   [DepositAmount] DECIMAL(10, 2) NOT NULL,
-	[Available] [BIT] NOT NULL
+  [Available] [BIT] NOT NULL
   
   CONSTRAINT [FK_Vehicle.BrandID]
     FOREIGN KEY ([BrandID])
@@ -115,9 +115,12 @@ GO
 
 CREATE TABLE [Rental] (
   [RentalID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [ReviewID] [INT] NOT NULL,
+  [ClientID] [INT] NOT NULL,
+  [EmployeeID] [INT] NOT NULL,
+  [VehicleID] [INT] NOT NULL,
   [PaymentMethodID] [INT] NOT NULL,
   [StatusID] [INT] NOT NULL,
+  [ReviewID] [INT] NOT NULL,
   [Address] [varchar](500) NOT NULL,
   [StartDate] [DATETIME] NOT NULL,
   [EndDate] [DATETIME] NOT NULL,
@@ -133,51 +136,18 @@ CREATE TABLE [Rental] (
   
   CONSTRAINT [FK_Rental.StatusID]
     FOREIGN KEY ([StatusID])
-      REFERENCES [Status]([StatusID])
-);
-GO
-
-CREATE TABLE [Rental-Vehicle] (
-  [RentalVehicleID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [RentalID] [INT] NOT NULL,
-  [VIN] [INT] NOT NULL,
+      REFERENCES [Status]([StatusID]),
   
-  CONSTRAINT [FK_Rental-Vehicle.RentalID]
-    FOREIGN KEY ([RentalID])
-      REFERENCES [Rental]([RentalID]),
-      
-  CONSTRAINT [FK_Rental-Vehicle.VIN]
-    FOREIGN KEY ([VIN])
-      REFERENCES [Vehicle]([VIN])
-);
-GO
-
-CREATE TABLE [Rental-Client] (
-  [RentalClientID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [RentalID] [INT] NOT NULL,
-  [ClientID] [INT] NOT NULL,
-  
-  CONSTRAINT [FK_Rental-Client.RentalID]
-    FOREIGN KEY ([RentalID])
-      REFERENCES [Rental]([RentalID]),
-  
-  CONSTRAINT [FK_Rental-Client.ClientID]
+  CONSTRAINT [FK_Rental.ClientID]
     FOREIGN KEY ([ClientID])
-      REFERENCES [Client]([ClientID])
-);
-GO
-
-CREATE TABLE [Rental-Employee] (
-  [RentalEmployeeID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [RentalID] [INT] NOT NULL,
-  [EmployeeID] [INT] NOT NULL,
+      REFERENCES [Client]([ClientID]),
   
-  CONSTRAINT [FK_Rental-Employee.RentalID]
-    FOREIGN KEY ([RentalID])
-      REFERENCES [Rental]([RentalID]),
-      
-  CONSTRAINT [FK_Rental-Employee.EmployeeID]
+  CONSTRAINT [FK_Rental.EmployeeID]
     FOREIGN KEY ([EmployeeID])
-      REFERENCES [Employee]([EmployeeID])
+      REFERENCES [Employee]([EmployeeID]),
+  
+  CONSTRAINT [FK_Rental.VehicleID]
+    FOREIGN KEY ([VehicleID])
+      REFERENCES [Vehicle]([VehicleID])
 );
 GO
