@@ -1,6 +1,8 @@
 USE master;
 GO
 
+DROP DATABASE RentalApp_DB;
+
 CREATE DATABASE RentalApp_DB;
 GO
 
@@ -33,7 +35,8 @@ CREATE TABLE [Brand] (
 GO
 
 CREATE TABLE dbo.[Vehicle] (
-  [VIN] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
+  [VehicleID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
+  [VIN] [VARCHAR](50) NOT NULL,
   [BrandID] [INT] NOT NULL,
   [ModelID] [INT] NOT NULL,
   [VehicleTypeID] [INT] NOT NULL,
@@ -62,7 +65,10 @@ CREATE TABLE dbo.[Vehicle] (
       
   CONSTRAINT [FK_Vehicle.ColorID]
     FOREIGN KEY ([ColorID])
-      REFERENCES [Color]([ColorID])
+      REFERENCES [Color]([ColorID]),
+
+  CONSTRAINT unqVIN 
+    UNIQUE(VIN)
 );
 GO
 
