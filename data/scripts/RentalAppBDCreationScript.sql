@@ -33,7 +33,8 @@ CREATE TABLE [Brand] (
 GO
 
 CREATE TABLE dbo.[Vehicle] (
-  [VIN] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
+  [VehicleID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
+  [VIN] [VARCHAR](50) NOT NULL,
   [BrandID] [INT] NOT NULL,
   [ModelID] [INT] NOT NULL,
   [VehicleTypeID] [INT] NOT NULL,
@@ -62,7 +63,10 @@ CREATE TABLE dbo.[Vehicle] (
       
   CONSTRAINT [FK_Vehicle.ColorID]
     FOREIGN KEY ([ColorID])
-      REFERENCES [Color]([ColorID])
+      REFERENCES [Color]([ColorID]),
+
+  CONSTRAINT unqVIN 
+    UNIQUE(VIN)
 );
 GO
 
@@ -77,6 +81,9 @@ CREATE TABLE [Review] (
   [Date] [DATE] NOT NULL,
   [Message] [varchar](500) NOT NULL,
   [Rating] [INT] NOT NULL,
+
+  CONSTRAINT RatingRange
+	  CHECK (Rating BETWEEN 1 AND 5)
 );
 GO
 
@@ -91,7 +98,7 @@ CREATE TABLE [Client] (
   [Name] [varchar](100) NOT NULL,
   [Surname] [varchar](100) NOT NULL,
   [Email] [varchar](100) NOT NULL,
-  [Phone] [numeric] NOT NULL,
+  [Phone] [varchar](20) NOT NULL,
   
   CONSTRAINT unqEmail 
         UNIQUE(Email)
@@ -102,7 +109,7 @@ CREATE TABLE [Employee] (
   [EmployeeID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
   [Name] [varchar](100) NOT NULL,
   [Surname] [varchar](100) NOT NULL,
-  [Phone] [numeric] NOT NULL,
+  [Phone] [varchar](20) NOT NULL,
   [DateOfEmployment] [DATE] NOT NULL
 );
 GO
@@ -111,38 +118,37 @@ CREATE TABLE [Rental] (
   [RentalID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
   [ClientID] [INT] NOT NULL,
   [EmployeeID] [INT] NOT NULL,
-  [VIN] [INT] NOT NULL,
-  [ReviewID] [INT] NOT NULL,
+  [VehicleID] [INT] NOT NULL,
   [PaymentMethodID] [INT] NOT NULL,
   [StatusID] [INT] NOT NULL,
+  [ReviewID] [INT] NOT NULL,
   [Address] [varchar](500) NOT NULL,
   [StartDate] [DATETIME] NOT NULL,
   [EndDate] [DATETIME] NOT NULL,
   [Balance] DECIMAL(10, 2) NOT NULL,
-
-  CONSTRAINT [FK_Rental.ClientID]
-    FOREIGN KEY ([ClientID])
-      REFERENCES [Client]([ClientID]),
-
-  CONSTRAINT [FK_Rental.EmployeeID]
-    FOREIGN KEY ([EmployeeID])
-      REFERENCES [Employee]([EmployeeID]),
-
-  CONSTRAINT [FK_Rental.VIN]
-    FOREIGN KEY ([VIN])
-      REFERENCES [Vehicle]([VIN]),
-
+  
   CONSTRAINT [FK_Rental.ReviewID]
     FOREIGN KEY ([ReviewID])
       REFERENCES [Review]([ReviewID]),
-
+      
   CONSTRAINT [FK_Rental.PaymentMethodID]
     FOREIGN KEY ([PaymentMethodID])
       REFERENCES [PaymentMethod]([PaymentMethodID]),
-
+  
   CONSTRAINT [FK_Rental.StatusID]
     FOREIGN KEY ([StatusID])
-      REFERENCES [Status]([StatusID])
+      REFERENCES [Status]([StatusID]),
+  
+  CONSTRAINT [FK_Rental.ClientID]
+    FOREIGN KEY ([ClientID])
+      REFERENCES [Client]([ClientID]),
+  
+  CONSTRAINT [FK_Rental.EmployeeID]
+    FOREIGN KEY ([EmployeeID])
+      REFERENCES [Employee]([EmployeeID]),
+  
+  CONSTRAINT [FK_Rental.VehicleID]
+    FOREIGN KEY ([VehicleID])
+      REFERENCES [Vehicle]([VehicleID])
 );
 GO
-
