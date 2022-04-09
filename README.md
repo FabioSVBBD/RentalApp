@@ -2,9 +2,25 @@
 
 ## Overview
 
-Car Rental App is an API that helps some business manage their rental resources
+Car Rental App is an API that helps a rental business manage their resources
 
 ## Authors
+
+- [Carmen Janse Van Rensburg](https://github.com/Carmen-JvR)
+- [Sandhya Singh](https://github.com/ms-si-Singh)
+- [Justin Perumal](https://github.com/JustinPerumalBBD)
+- [Lusanda Mthiba](https://github.com/luslindo)
+- [Thabo Rachidi](https://github.com/thaboRach)
+- [Zaeem Asvat](https://github.com/zaeemasvatbbd)
+
+## Stack
+
+| Target | Technology |
+| --- | --- |
+| Database | MS SQL Server |
+| Backend | Java Spring Boot |
+| Frontend | TBD - Probably none |
+| Hosting | S3 Bucket |
 
 ## Pre-requisites
 
