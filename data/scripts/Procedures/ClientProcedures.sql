@@ -2,9 +2,9 @@ USE RentalApp_DB;
 GO
 
 
--- Exec dbo.[InsertClient] @Name = '' , @Surname  = '', @Email  = '@mail', @Phone = 000
+-- Exec dbo.[InsertClient] @Name = '' , @Surname  = '', @Email  = '@mail', @Phone = ''
 
-CREATE PROCEDURE dbo.[InsertClient] @Name varchar(100) , @Surname varchar(100), @Email varchar(100), @Phone numeric
+CREATE PROCEDURE dbo.[InsertClient] @Name varchar(100) , @Surname varchar(100), @Email varchar(100), @Phone varchar(20)
 AS
 BEGIN
     INSERT INTO [Client] ([Name], [Surname], [Email], [Phone])
@@ -12,8 +12,8 @@ BEGIN
 END
 GO
 
--- Exec dbo.[UpdateClient] @ID=1, @Name = '' , @Surname  = '', @Email  = '', @Phone = 000
-CREATE PROCEDURE dbo.[UpdateClient] @ID INT, @Name varchar(100) , @Surname varchar(100), @Email varchar(100), @Phone numeric
+-- Exec dbo.[UpdateClient] @ID=1, @Name = '' , @Surname  = '', @Email  = '', @Phone = ''
+CREATE PROCEDURE dbo.[UpdateClient] @ID INT, @Name varchar(100) , @Surname varchar(100), @Email varchar(100), @Phone varchar(20)
 AS
     UPDATE [Client]
     SET [Name] = @Name, 

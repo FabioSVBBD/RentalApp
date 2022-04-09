@@ -2,6 +2,7 @@ USE RentalApp_DB;
 GO
 
 CREATE PROCEDURE dbo.[InsertVehicle]
+@Vin varchar(50),
 @BrandID int,
 @ModelID int,
 @VehicleTypeID int,
@@ -17,6 +18,7 @@ CREATE PROCEDURE dbo.[InsertVehicle]
 @Available bit 
 AS
 	INSERT INTO [Vehicle](
+		[VIN],
 		[BrandID], 
 		[ModelID], 
 		[VehicleTypeID], 
@@ -32,6 +34,7 @@ AS
 		[Available]
 	)
 	VALUES (
+		@Vin,
 		@BrandID,
 		@ModelID,
 		@VehicleTypeID,
@@ -49,7 +52,8 @@ AS
 GO
 
 CREATE PROCEDURE dbo.[UpdateVehicle]
-@VIN int,
+@VehicleID int,
+@Vin varchar(50),
 @BrandID int,
 @ModelID int,
 @VehicleTypeID int,
@@ -66,6 +70,7 @@ CREATE PROCEDURE dbo.[UpdateVehicle]
 AS
 	UPDATE [Vehicle]
 	SET
+		[VIN] = @Vin,
 		[BrandID] = @BrandID,
 		[ModelID] = @ModelID,
 		[VehicleTypeID] = @VehicleTypeID,
@@ -79,12 +84,12 @@ AS
 		[Mileage] = @Mileage,
 		[DepositAmount] = @DepositAmount,
 		[Available] = @Available
-	WHERE @VIN = [VIN]
+	WHERE @VehicleID = [VehicleID]
 GO
 
-CREATE PROCEDURE dbo.[getVehicles]
-AS
-	SELECT 
+CREATE VIEW dbo.[AllVehicles] AS
+SELECT 
+	    v.VehicleID,
 		v.VIN, 
 		v.NumSeats, 
 		v.DayRate, 
@@ -99,9 +104,8 @@ AS
 		m.ModelName,
 		m.Year,
 		vt.Type
-	FROM Vehicle v 
+	FROM [Vehicle] v 
 	INNER JOIN Color c ON c.ColorID = v.ColorID
 	INNER JOIN Model m ON m.ModelID = v.ModelID
 	INNER JOIN Brand b ON b.BrandID = v.BrandID
 	INNER JOIN VehicleType vt ON vt.VehicleTypeID = v.VehicleTypeID
-GO
