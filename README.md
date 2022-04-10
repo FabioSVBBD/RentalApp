@@ -12,6 +12,7 @@ Car Rental App is an API that helps a rental business manage their resources
 - [Lusanda Mthiba](https://github.com/luslindo)
 - [Thabo Rachidi](https://github.com/thaboRach)
 - [Zaeem Asvat](https://github.com/zaeemasvatbbd)
+- [Fabio Sousa Vieira](https://github.com/FabioSVBBD)
 
 ## Stack
 
