@@ -14,20 +14,4 @@ public class RentalAppApplication {
 		SpringApplication.run(RentalAppApplication.class, args);
 	}
 
-	@Bean
-	public CommandLineRunner getAllClients(ClientRepository repo) {
-		if (repo.findByName("Jane").isEmpty()) {
-			repo.save(new Client("Jane", "Johnson", "janejohnson@gmail.com", "0824563433"));
-		}
-
-		return (args) -> {
-			System.out.println("Clients");
-
-			for (Client client : repo.findAll()) {
-				System.out.println(client);
-			}
-
-			System.out.println(String.format("Client with name 'Jane': %s", repo.findByName("Jane").toString()));
-		};
-	}
 }
