@@ -1,7 +1,11 @@
 package com.rental.rentalApp;
 
 import com.rental.rentalApp.entities.Client;
+import com.rental.rentalApp.entities.PaymentMethod;
+import com.rental.rentalApp.entities.VehicleType;
 import com.rental.rentalApp.repositories.ClientRepository;
+import com.rental.rentalApp.repositories.PaymentMethodRepository;
+import com.rental.rentalApp.repositories.VehicleTypeRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,6 +26,32 @@ public class RentalAppApplication {
 
 			for (Client client : repo.findAll()) {
 				System.out.println(client);
+			}
+		};
+	}
+
+	@Bean
+	public CommandLineRunner getAllPayments(PaymentMethodRepository PMrepo)
+	{
+		return(args) -> {
+			System.out.println("Payment information");
+
+			for(PaymentMethod method : PMrepo.findAll())
+			{
+				System.out.println(method);
+			}
+		};
+	}
+
+	@Bean
+	public CommandLineRunner getAllVehicleTypes(VehicleTypeRepository VHrepo)
+	{
+		return(args) -> {
+			System.out.println("Vehicle Types");
+
+			for(VehicleType type : VHrepo.findAll())
+			{
+				System.out.println(type);
 			}
 		};
 	}
