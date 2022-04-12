@@ -1,7 +1,11 @@
 package com.rental.rentalApp;
 
 import com.rental.rentalApp.entities.Client;
+import com.rental.rentalApp.entities.Rental;
+
 import com.rental.rentalApp.repositories.ClientRepository;
+import com.rental.rentalApp.repositories.RentalRepository;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,4 +29,16 @@ public class RentalAppApplication {
 			}
 		};
 	}
+	
+	// Writes all rentals to command line [REMOVE]
+		@Bean
+		public CommandLineRunner getAllRentals(RentalRepository repo) {
+			return (args) -> {
+				System.out.println("Rentals");
+
+				for (Rental rental : repo.findAll()) {
+					System.out.println(rental);
+				}
+			};
+		}
 }
