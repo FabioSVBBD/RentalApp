@@ -2,6 +2,12 @@ package com.rental.rentalApp;
 
 import com.rental.rentalApp.entities.Client;
 import com.rental.rentalApp.repositories.ClientRepository;
+import com.rental.rentalApp.entities.Color;
+import com.rental.rentalApp.repositories.ColorRepository;
+import com.rental.rentalApp.entities.Brand;
+import com.rental.rentalApp.repositories.BrandRepository;
+import com.rental.rentalApp.entities.Model;
+import com.rental.rentalApp.repositories.ModelRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,4 +31,38 @@ public class RentalAppApplication {
 			}
 		};
 	}
+
+  @Bean
+	public CommandLineRunner getAllColors(ColorRepository repo) {
+		return (args) -> {
+			System.out.println("Colors");
+
+			for (Color color : repo.findAll()) {
+				System.out.println(color);
+			}
+		};
+	}
+
+  @Bean
+	public CommandLineRunner getAllBrands(BrandRepository repo) {
+		return (args) -> {
+			System.out.println("Brands");
+
+			for (Brand brand: repo.findAll()) {
+				System.out.println(brand);
+			}
+		};
+	}
+
+  @Bean
+	public CommandLineRunner getAllModels(ModelRepository repo) {
+		return (args) -> {
+			System.out.println("Models");
+
+			for (Model model : repo.findAll()) {
+				System.out.println(model);
+			}
+		};
+	}
+
 }
