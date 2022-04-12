@@ -9,13 +9,14 @@ public class Status {
     private int StatusID;
 
     @Column(name = "Status")
-    private String Status;
+    private String status;
 
     public Status() {
     }
 
     public Status(String status) {
-        Status = status;
+
+        this.status = status;
     }
     public int getStatusID() {
         return StatusID;
@@ -26,17 +27,17 @@ public class Status {
     }
 
     public String getStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(String status) {
-        Status = status;
+        this.status = status;
     }
 
     @Override
     public String toString() {
         return String.format("Status [ id = %d, status = %s]",
-                StatusID,Status);
+                StatusID,status);
     }
 
 }
