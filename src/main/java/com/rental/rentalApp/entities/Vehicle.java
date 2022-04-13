@@ -15,17 +15,21 @@ public class Vehicle {
     @Column(name = "VIN")
     private String VIN;
 
-    @Column(name = "BrandID")
-    private int brandID;
+    @ManyToOne
+    @JoinColumn(name = "BrandID", nullable = false)
+    private Brand brand;
 
-    @Column(name = "ModelID")
-    private int modelID;
+    @ManyToOne
+    @JoinColumn(name = "ModelID", nullable = false)
+    private Model model;
 
-    @Column(name = "VehicleTypeID")
-    private int vehicleTypeID;
+    @ManyToOne
+    @JoinColumn(name = "VehicleTypeID", nullable = false)
+    private VehicleType vehicleType;
 
-    @Column(name = "ColorID")
-    private int colourID;
+    @ManyToOne
+    @JoinColumn(name = "ColorID", nullable = false)
+    private Color color;
 
     @Column(name = "NumSeats")
     private int numSeats;
@@ -58,10 +62,10 @@ public class Vehicle {
 
     public Vehicle(
         String VIN,
-        int brandID,
-        int modelID,
-        int vehicleTypeID,
-        int colourID,
+        Brand brand,
+        Model model,
+        VehicleType vehicleType,
+        Color color,
         int numSeats,
         BigDecimal dailyRate,
         BigDecimal hourlyRate,
@@ -73,10 +77,10 @@ public class Vehicle {
         boolean available
     ) {
         this.setVIN(VIN);
-        this.setBrandID(brandID);
-        this.setModel(modelID);
-        this.setVehicleType(vehicleTypeID);
-        this.setColour(colourID);
+        this.setBrand(brand);
+        this.setModel(model);
+        this.setVehicleType(vehicleType);
+        this.setColour(color);
         this.setNumSeats(numSeats);
         this.setDailyRate(dailyRate);
         this.setHourlyRate(hourlyRate);
@@ -90,18 +94,18 @@ public class Vehicle {
 
     @Override
     public String toString() {
-        return String.format("Vehicle [ id = %d, VIN = %s, brandID = %d, modelID = %d, vehicleTypeID = %d, colourID = %d," +
+        return String.format("Vehicle [[ id = %d, VIN = %s, brand = [ %s ], model = [ %s ], vehicleType = [ %s ], color = [ %s ]," +
                         " numSeats: %d, dailyRate: %s, hourlyRate: %s, yearPurchased: %d, lastService: %s, transmission: %c," +
-                        " mileage: %s, depositAmount: %s, available: %s]",
-                this.vehicleID, this.VIN, this.brandID, this.modelID, this.vehicleTypeID, this.colourID, this.numSeats, this.dailyRate,
+                        " mileage: %s, depositAmount: %s, available: %s ]]",
+                this.vehicleID, this.VIN, this.brand, this.model, this.vehicleType, this.color, this.numSeats, this.dailyRate,
                 this.hourlyRate, this.yearPurchased, this.lastService, this.transmission, this.mileage, this.depositAmount, this.available);
     }
 
     public String getVIN() { return VIN; }
-    public int getBrandID() { return brandID; }
-    public int getModel() { return modelID; }
-    public int getVehicleType() { return vehicleTypeID; }
-    public int getColour() { return colourID; }
+    public Brand getBrand() { return brand; }
+    public Model getModel() { return model; }
+    public VehicleType getVehicleType() { return vehicleType; }
+    public Color getColour() { return color; }
     public int getNumSeats() { return numSeats; }
     public BigDecimal getDailyRate() { return dailyRate; }
     public BigDecimal getHourlyRate() { return hourlyRate; }
@@ -113,10 +117,10 @@ public class Vehicle {
     public boolean isAvailable() { return available; }
 
     public void setVIN(String VIN) { this.VIN = VIN; }
-    public void setBrandID(int brandID) { this.brandID = brandID; }
-    public void setModel(int model) { this.modelID = model; }
-    public void setVehicleType(int vehicleType) { this.vehicleTypeID = vehicleType; }
-    public void setColour(int colour) { this.colourID = colour; }
+    public void setBrand(Brand brand) { this.brand = brand; }
+    public void setModel(Model model) { this.model = model; }
+    public void setVehicleType(VehicleType vehicleType) { this.vehicleType = vehicleType; }
+    public void setColour(Color color) { this.color = color; }
     public void setNumSeats(int numSeats) { this.numSeats = numSeats; }
     public void setDailyRate(BigDecimal dailyRate) { this.dailyRate = dailyRate; }
     public void setHourlyRate(BigDecimal hourlyRate) { this.hourlyRate = hourlyRate; }

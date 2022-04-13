@@ -25,18 +25,6 @@ public class RentalAppApplication {
 		};
 	}
 
-
-	// Writes all vehicles to command line [REMOVE]
-	@Bean
-	public CommandLineRunner getAllVehicles(VehicleRepository repo) {
-		return (args) -> {
-			System.out.println("Vehicles");
-			for (Vehicle vehicle : repo.findAll()) {
-				System.out.println(vehicle);
-			}
-		};
-	}
-
 	@Bean
 	public CommandLineRunner getAllColors(ColorRepository repo) {
 		return (args) -> {
@@ -66,6 +54,37 @@ public class RentalAppApplication {
 
 			for (Model model : repo.findAll()) {
 				System.out.println(model);
+			}
+		};
+	}
+
+
+	// Writes all vehicles to command line [REMOVE]
+	@Bean
+	public CommandLineRunner getAllVehicles(VehicleRepository repo) {
+		return (args) -> {
+			System.out.println("Vehicles");
+			for (Vehicle vehicle : repo.findAll()) {
+				System.out.println(vehicle);
+			}
+		};
+	}
+
+	@Bean
+	public CommandLineRunner getAllPayments(PaymentMethodRepository PMrepo) {
+		return(args) -> {
+			System.out.println("Payment information");
+			for(PaymentMethod method : PMrepo.findAll()) {
+				System.out.println(method);
+			}
+		};
+	}
+
+	public CommandLineRunner getAllVehicleTypes(VehicleTypeRepository VHrepo) {
+		return(args) -> {
+			System.out.println("Vehicle Types");
+			for(VehicleType type : VHrepo.findAll()) {
+				System.out.println(type);
 			}
 		};
 	}
