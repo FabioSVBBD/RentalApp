@@ -25,6 +25,17 @@ public class RentalAppApplication {
 			}
 		};
 	}
+  
+  @Bean
+	public CommandLineRunner getAllStatuses(StatusRepository repo) {
+		return (args) -> {
+			System.out.println("Statuses");
+
+			for (Status status : repo.findAll()) {
+				System.out.println(status);
+			}
+		};
+	}
 
   @Bean
 	public CommandLineRunner getAllColors(ColorRepository repo) {
@@ -59,4 +70,15 @@ public class RentalAppApplication {
 		};
 	}
 
+=======
+	@Bean
+	public CommandLineRunner getAllStatuses(StatusRepository repo) {
+		return (args) -> {
+			System.out.println("Statuses");
+
+			for (Status status : repo.findAll()) {
+				System.out.println(status);
+			}
+		};
+	}
 }
