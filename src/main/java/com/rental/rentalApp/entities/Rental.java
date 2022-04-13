@@ -12,20 +12,25 @@ public class Rental {
 	 @Column(name = "Address")
 	  private String address;
 	 
-	 @Column(name = "ClientID")
-	  private int clientID;
+	 @ManyToOne
+	 @JoinColumn(name = "ClientID", nullable = false)
+	  private Client client;
 	 
-	 @Column(name = "VehicleID")
-	  private int vehicleID;
+	 @ManyToOne
+	 @JoinColumn(name = "VehicleID", nullable = false)
+	  private Vehicle vehicle;
 	 
-	 @Column(name = "PaymentMethodID")
-	  private int paymentMethodID;
+	 @ManyToOne
+	 @JoinColumn(name = "PaymentMethodID", nullable = false)
+	  private PaymentMethod paymentMethod;
 	 
-	 @Column(name = "StatusID")
-	  private int statusID;
+	 @ManyToOne
+	 @JoinColumn(name = "StatusID", nullable = false)
+	  private Status status;
 	 
-	 @Column(name = "ReviewID")
-	  private int reviewID;
+	 @ManyToOne
+	 @JoinColumn(name = "ReviewID", nullable = false)
+	  private Review review;
 	 
 	 @Column(name = "StartDate")
 	  private Date startDate;
@@ -40,12 +45,12 @@ public class Rental {
 	 
 	 public Rental() {}
 	 
-	 public Rental(String address, int clientId, int vehicleId, int paymentMethodId, int statusId, int reviewId, Date startDate, Date endDate, double balance) {
+	 public Rental(String address, Client client, Vehicle vehicle, PaymentMethod paymentMethod, Status status, Review review, Date startDate, Date endDate, double balance) {
 	        this.setAddress(address);
-	        this.setClient(clientId);
-	        this.setVehicle(vehicleId);
-	        this.setAPaymentMethod(paymentMethodId);
-	        this.setStatus(statusId);
+	        this.setClient(client);
+	        this.setVehicle(vehicle);
+	        this.setAPaymentMethod(paymentMethod);
+	        this.setStatus(status);
 	        this.setStartDate(startDate);
 	        this.setEndDate(endDate);
 	        this.setBalance(balance);
@@ -53,15 +58,15 @@ public class Rental {
 	 
 	 @Override
 	    public String toString() {
-		 	return "Rental [ ID = " + RentalID + ", Address = " + address  + ", Client = " +  clientID  + ", Vehicle = " +  vehicleID  + ", PaymentMethod = " +  paymentMethodID + ", Status = " +  statusID  + ", Review = " +  reviewID  + ", StartDate = " +  startDate  + ", EndDate = " +  endDate  + ", Balance = " +  balance + " ]";
+		 	return "Rental [ ID = " + RentalID + ", Address = " + address  + ", Client = " +  client  + ", Vehicle = " +  vehicle  + ", PaymentMethod = " +  paymentMethod + ", Status = " +  status  + ", Review = " +  review  + ", StartDate = " +  startDate  + ", EndDate = " +  endDate  + ", Balance = " +  balance + " ]";
 	    }
 	 
 	 public String getAddress() { return this.address; }
-	 public int getClient() { return this.clientID; }
-	 public int getVehicle() { return this.vehicleID; }
-	 public int getPaymentMethod() { return this.paymentMethodID; }
-	 public int getStatus() { return this.statusID; }
-	 public int getReview() { return this.reviewID; }
+	 public Client getClient() { return this.client; }
+	 public Vehicle getVehicle() { return this.vehicle; }
+	 public PaymentMethod getPaymentMethod() { return this.paymentMethod; }
+	 public Status getStatus() { return this.status; }
+	 public Review getReview() { return this.review; }
 	 public Date getStartDate() { return this.startDate; }
 	 public Date getEndDate() { return this.endDate; }
 	 public Double getBalance() { return this.balance; }
@@ -70,24 +75,24 @@ public class Rental {
 	        this.address = address;
 	 }
 	 
-	 public void setClient(int clientId) {
-	        this.clientID = clientId;
+	 public void setClient(Client client) {
+	        this.client= client;
 	 }
 	 
-	 public void setVehicle(int vehicleId) {
-	        this.vehicleID = vehicleId;
+	 public void setVehicle(Vehicle vehicle) {
+	        this.vehicle = vehicle;
 	 }
 	 
-	 public void setAPaymentMethod(int paymentMethodId) {
-	        this.paymentMethodID = paymentMethodId ;
+	 public void setAPaymentMethod(PaymentMethod paymentMethod) {
+	        this.paymentMethod = paymentMethod ;
 	 }
 	 
-	 public void setStatus(int statusId) {
-	        this.statusID = statusId; 
+	 public void setStatus(Status status) {
+	        this.status = status; 
 	 }
 	 
-	 public void setReview(int reviewId) {
-	        this.reviewID = reviewId ;
+	 public void setReview(Review review) {
+	        this.review = review ;
 	 }
 	 
 	 public void setStartDate(Date startDate) {
