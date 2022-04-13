@@ -70,38 +70,26 @@ public class RentalAppApplication {
 	}
 
 	@Bean
-	public CommandLineRunner getAllColors(ColorRepository repo) {
+	public CommandLineRunner getAllReviews(ReviewRepository repo) {
 		return (args) -> {
-			System.out.println("Colors");
+			System.out.println("Reviews");
 
-			for (Color color : repo.findAll()) {
-				System.out.println(color);
+			for (Review review : repo.findAll()) {
+				System.out.println(review);
 			}
 		};
 	}
 
 	@Bean
-	public CommandLineRunner getAllBrands(BrandRepository repo) {
+	public CommandLineRunner getAllEmployees(EmployeeRepository repo) {
 		return (args) -> {
-			System.out.println("Brands");
+			System.out.println("Employees");
 
-			for (Brand brand: repo.findAll()) {
-				System.out.println(brand);
+			for (Employee employee : repo.findAll()) {
+				System.out.println(employee);
 			}
 		};
 	}
-
-	@Bean
-	public CommandLineRunner getAllModels(ModelRepository repo) {
-		return (args) -> {
-			System.out.println("Models");
-
-			for (Model model : repo.findAll()) {
-				System.out.println(model);
-			}
-		};
-	}
-
 
 	// Writes all vehicles to command line [REMOVE]
 	@Bean
