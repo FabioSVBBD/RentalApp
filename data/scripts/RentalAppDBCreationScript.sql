@@ -32,7 +32,7 @@ CREATE TABLE [Brand] (
 );
 GO
 
-CREATE TABLE dbo.[Vehicle] (
+CREATE TABLE [Vehicle] (
   [VehicleID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
   [VIN] [VARCHAR](50) NOT NULL,
   [BrandID] [INT] NOT NULL,
