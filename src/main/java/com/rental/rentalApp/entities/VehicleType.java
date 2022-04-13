@@ -22,7 +22,7 @@ public class VehicleType {
     @Override
     public String toString()
     {
-        return "Vehicle Type [ ID = " + VehicleTypeID + ", Type = " + type;
+        return "Vehicle Type [ ID = " + VehicleTypeID + ", Type = " + type + "]";
     }
 
     public String getType(String type)
