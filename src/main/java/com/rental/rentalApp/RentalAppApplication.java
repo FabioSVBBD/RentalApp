@@ -1,7 +1,7 @@
 package com.rental.rentalApp;
 
-import com.rental.rentalApp.entities.Client;
-import com.rental.rentalApp.repositories.ClientRepository;
+import com.rental.rentalApp.entities.*;
+import com.rental.rentalApp.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,6 +22,17 @@ public class RentalAppApplication {
 
 			for (Client client : repo.findAll()) {
 				System.out.println(client);
+			}
+		};
+	}
+
+	@Bean
+	public CommandLineRunner getAllStatuses(StatusRepository repo) {
+		return (args) -> {
+			System.out.println("Statuses");
+
+			for (Status status : repo.findAll()) {
+				System.out.println(status);
 			}
 		};
 	}
