@@ -70,7 +70,6 @@ public class RentalAppApplication {
 		};
 	}
 
-=======
 	@Bean
 	public CommandLineRunner getAllStatuses(StatusRepository repo) {
 		return (args) -> {
