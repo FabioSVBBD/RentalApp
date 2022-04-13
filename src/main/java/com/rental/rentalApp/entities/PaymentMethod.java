@@ -22,7 +22,7 @@ public class PaymentMethod {
     @Override
     public String toString()
     {
-        return "Payment Method [ ID = " + PaymentMethodID + ", Method = " + methodName;
+        return "Payment Method [ ID = " + PaymentMethodID + ", Method = " + methodName + "]";
     }
 
     public String getMethod(String methodName)
