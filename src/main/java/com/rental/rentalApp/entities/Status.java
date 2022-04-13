@@ -18,13 +18,6 @@ public class Status {
         this.setStatus(status);
     }
     
-    public int getStatusID() {
-        return StatusID;
-    }
-
-    public void setStatusID(int statusID) {
-        StatusID = statusID;
-    }
 
     public String getStatus() {
         return status;
