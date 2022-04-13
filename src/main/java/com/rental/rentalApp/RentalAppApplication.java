@@ -27,12 +27,27 @@ public class RentalAppApplication {
 	}
 
 	@Bean
-	public CommandLineRunner getAllStatuses(StatusRepository repo) {
-		return (args) -> {
-			System.out.println("Statuses");
+	public CommandLineRunner getAllPayments(PaymentMethodRepository PMrepo)
+	{
+		return(args) -> {
+			System.out.println("Payment information");
 
-			for (Status status : repo.findAll()) {
-				System.out.println(status);
+			for(PaymentMethod method : PMrepo.findAll())
+			{
+				System.out.println(method);
+			}
+		};
+	}
+
+	@Bean
+	public CommandLineRunner getAllVehicleTypes(VehicleTypeRepository VHrepo)
+	{
+		return(args) -> {
+			System.out.println("Vehicle Types");
+
+			for(VehicleType type : VHrepo.findAll())
+			{
+				System.out.println(type);
 			}
 		};
 	}
