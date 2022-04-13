@@ -19,7 +19,6 @@ public class RentalAppApplication {
 	public CommandLineRunner getAllClients(ClientRepository repo) {
 		return (args) -> {
 			System.out.println("Clients");
-
 			for (Client client : repo.findAll()) {
 				System.out.println(client);
 			}
@@ -71,28 +70,67 @@ public class RentalAppApplication {
 	}
 
 	@Bean
-	public CommandLineRunner getAllPayments(PaymentMethodRepository PMrepo)
-	{
-		return(args) -> {
-			System.out.println("Payment information");
+	public CommandLineRunner getAllColors(ColorRepository repo) {
+		return (args) -> {
+			System.out.println("Colors");
 
-			for(PaymentMethod method : PMrepo.findAll())
-			{
-				System.out.println(method);
+			for (Color color : repo.findAll()) {
+				System.out.println(color);
 			}
 		};
 	}
 
 	@Bean
-	public CommandLineRunner getAllVehicleTypes(VehicleTypeRepository VHrepo)
-	{
+	public CommandLineRunner getAllBrands(BrandRepository repo) {
+		return (args) -> {
+			System.out.println("Brands");
+
+			for (Brand brand: repo.findAll()) {
+				System.out.println(brand);
+			}
+		};
+	}
+
+	@Bean
+	public CommandLineRunner getAllModels(ModelRepository repo) {
+		return (args) -> {
+			System.out.println("Models");
+
+			for (Model model : repo.findAll()) {
+				System.out.println(model);
+			}
+		};
+	}
+
+
+	// Writes all vehicles to command line [REMOVE]
+	@Bean
+	public CommandLineRunner getAllVehicles(VehicleRepository repo) {
+		return (args) -> {
+			System.out.println("Vehicles");
+			for (Vehicle vehicle : repo.findAll()) {
+				System.out.println(vehicle);
+			}
+		};
+	}
+
+	@Bean
+	public CommandLineRunner getAllPayments(PaymentMethodRepository PMrepo) {
+		return(args) -> {
+			System.out.println("Payment information");
+			for(PaymentMethod method : PMrepo.findAll()) {
+				System.out.println(method);
+			}
+		};
+	}
+
+	public CommandLineRunner getAllVehicleTypes(VehicleTypeRepository VHrepo) {
 		return(args) -> {
 			System.out.println("Vehicle Types");
-
-			for(VehicleType type : VHrepo.findAll())
-			{
+			for(VehicleType type : VHrepo.findAll()) {
 				System.out.println(type);
 			}
 		};
 	}
+
 }

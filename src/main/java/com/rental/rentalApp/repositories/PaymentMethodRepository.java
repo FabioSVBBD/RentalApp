@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface PaymentMethodRepository extends CrudRepository<PaymentMethod, Integer> {
-    List<PaymentMethod> findByMethod(String methodName);
+    List<PaymentMethod> findByMethodName(String methodName);
 }
