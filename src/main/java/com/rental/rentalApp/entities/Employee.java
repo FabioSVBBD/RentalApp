@@ -1,10 +1,6 @@
 package com.rental.rentalApp.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.GenerationType;
-import javax.persistence.Column;
+import javax.persistence.*;
 
 import java.time.LocalDateTime;
 
