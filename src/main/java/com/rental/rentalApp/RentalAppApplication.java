@@ -24,6 +24,18 @@ public class RentalAppApplication {
 			}
 		};
 	}
+	
+	// Writes all rentals to command line [REMOVE]
+		@Bean
+		public CommandLineRunner getAllRentals(RentalRepository repo) {
+			return (args) -> {
+				System.out.println("Rentals");
+
+				for (Rental rental : repo.findAll()) {
+					System.out.println(rental);
+				}
+			};
+		}
   
   @Bean
 	public CommandLineRunner getAllStatuses(StatusRepository repo) {
