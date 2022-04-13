@@ -1,6 +1,5 @@
 package com.rental.rentalApp.repositories;
 
-import com.rental.rentalApp.entities.Client;
 import com.rental.rentalApp.entities.Status;
 import org.springframework.data.repository.CrudRepository;
 

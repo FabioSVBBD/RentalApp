@@ -18,7 +18,7 @@ public class ClientsController {
 	}
 
 	@GetMapping("")
-	public ResponseEntity<Iterable<Client>> getAllClients(@RequestParam Optional<String> name) {
+	public ResponseEntity<Iterable<Client>> getAllClients(@RequestParam Optional<String> name) { // surname, email, number search
 		if (name.isPresent()) {
 			return ResponseEntity.ok(clients.findByName(name.get()));
 		}
@@ -36,4 +36,8 @@ public class ClientsController {
 
 		return ResponseEntity.notFound().build();
 	}
+
+	// @PostMapping("")
+	// @PatchMapping("{id}")
+	// @DeleteMapping("{id}")
 }
