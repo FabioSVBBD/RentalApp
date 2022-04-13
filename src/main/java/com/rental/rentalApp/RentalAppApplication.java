@@ -1,9 +1,7 @@
 package com.rental.rentalApp;
 
-import com.rental.rentalApp.entities.Client;
-import com.rental.rentalApp.entities.Vehicle;
-import com.rental.rentalApp.repositories.ClientRepository;
-import com.rental.rentalApp.repositories.VehicleRepository;
+import com.rental.rentalApp.entities.*;
+import com.rental.rentalApp.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
