@@ -25,6 +25,50 @@ public class RentalAppApplication {
 			}
 		};
 	}
+  
+  @Bean
+	public CommandLineRunner getAllStatuses(StatusRepository repo) {
+		return (args) -> {
+			System.out.println("Statuses");
+
+			for (Status status : repo.findAll()) {
+				System.out.println(status);
+			}
+		};
+	}
+
+  @Bean
+	public CommandLineRunner getAllColors(ColorRepository repo) {
+		return (args) -> {
+			System.out.println("Colors");
+
+			for (Color color : repo.findAll()) {
+				System.out.println(color);
+			}
+		};
+	}
+
+  @Bean
+	public CommandLineRunner getAllBrands(BrandRepository repo) {
+		return (args) -> {
+			System.out.println("Brands");
+
+			for (Brand brand: repo.findAll()) {
+				System.out.println(brand);
+			}
+		};
+	}
+
+  @Bean
+	public CommandLineRunner getAllModels(ModelRepository repo) {
+		return (args) -> {
+			System.out.println("Models");
+
+			for (Model model : repo.findAll()) {
+				System.out.println(model);
+			}
+		};
+	}
 
 	@Bean
 	public CommandLineRunner getAllPayments(PaymentMethodRepository PMrepo)
