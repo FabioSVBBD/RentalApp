@@ -9,12 +9,6 @@ public class Client extends Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int clientID;
 
-    @Column(name = "Name")
-    private String name;
-
-    @Column(name = "Surname")
-    private String surname;
-
     @Column(name = "Email")
     private String email;
 
