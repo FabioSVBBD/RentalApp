@@ -8,9 +8,8 @@ import java.util.List;
 public interface ClientRepository extends CrudRepository<Client, Integer> {
     List<Client> findByName(String name);
 		List<Client> findBySurname(String surname);
-
-		Client findByEmail(String email);
-		Client findByNumber(String number);
+		List<Client> findByEmail(String email);
+		List<Client> findByNumber(String number);
 
 		long deleteByEmail(String email);
 		long deleteByNumber(String number);
