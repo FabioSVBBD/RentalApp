@@ -52,7 +52,7 @@ public class VehicleController {
 
     if (newData.getMileage() != null) {
 			vehicle.setMileage(newData.getMileage());
-			response.append(String.format("New milage for vehicle updated: "+newData.getMileage() +"\n"));
+			response.append(String.format("Milage for vehicle updated: "+newData.getMileage() +"\n"));
 		}
 
     //avaiable will never be null
