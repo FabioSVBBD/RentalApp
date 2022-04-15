@@ -7,4 +7,8 @@ import java.util.List;
 
 public interface VehicleRepository extends CrudRepository<Vehicle, Integer> {
     List<Vehicle> findByVIN(String VIN);
+
+    List<Vehicle> findByAvailable(Boolean Available);
+
+    long deleteByVin(String VIN);
 }
