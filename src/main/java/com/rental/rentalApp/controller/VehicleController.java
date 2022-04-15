@@ -55,6 +55,10 @@ public class VehicleController {
 			response.append(String.format("New milage for vehicle updated: "+newData.getMileage() +"\n"));
 		}
 
+    //avaiable will never be null
+    vehicle.setAvailable(newData.isAvailable());
+		response.append(String.format("Availablity for vehicle updated: "+newData.isAvailable() +"\n"));
+
 		return ResponseEntity.ok(response.toString());
 	}
 
