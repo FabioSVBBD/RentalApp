@@ -2,6 +2,7 @@ package com.rental.rentalApp.controller;
 
 import java.util.*;
 
+import com.rental.rentalApp.constants.AccessTokens;
 import com.rental.rentalApp.entities.Client;
 import com.rental.rentalApp.repositories.ClientRepository;
 
@@ -101,9 +102,7 @@ public class ClientsController {
 
 	@DeleteMapping("{id}")
 	public ResponseEntity<String> deleteClient(@PathVariable Integer id, @RequestParam Optional<String> token) {
-		final String securityKey = "g2G7aoTyqQeDG4liY5ZmBAQr8V7M4v3BKSeUNd5u";
-
-		if (token.isPresent() && token.get().equals(securityKey)) {
+		if (token.isPresent() && token.get().equals(AccessTokens.getSecurityKey())) {
 			Client client = clients.findById(id).get();
 			clients.deleteById(id);
 
