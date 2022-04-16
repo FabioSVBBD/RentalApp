@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Entity
 public class Rental {
 	 @Id
-	 @GeneratedValue(strategy = GenerationType.AUTO)
+	 @GeneratedValue(strategy = GenerationType.IDENTITY)
 	 private int RentalID;
 	 
 	 @Column(name = "Address")
@@ -34,14 +34,12 @@ public class Rental {
 	 
 	 @Column(name = "StartDate")
 	  private Date startDate;
-	 
-	 
+
 	 @Column(name = "EndDate")
 	  private Date endDate;
 	 
 	 @Column(name = "Balance")
 	  private Double balance;
-	 
 	 
 	 public Rental() {}
 	 
@@ -51,6 +49,7 @@ public class Rental {
 	        this.setVehicle(vehicle);
 	        this.setAPaymentMethod(paymentMethod);
 	        this.setStatus(status);
+			this.setReview(review);
 	        this.setStartDate(startDate);
 	        this.setEndDate(endDate);
 	        this.setBalance(balance);
