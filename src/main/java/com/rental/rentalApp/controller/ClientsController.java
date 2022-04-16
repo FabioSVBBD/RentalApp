@@ -1,7 +1,5 @@
 package com.rental.rentalApp.controller;
 
-import java.util.*;
-
 import com.rental.rentalApp.constants.AccessTokens;
 import com.rental.rentalApp.entities.Client;
 import com.rental.rentalApp.repositories.ClientRepository;
@@ -20,22 +18,22 @@ public class ClientsController {
 
 	@GetMapping("")
 	public ResponseEntity<Iterable<Client>> getAllClients(
-			@RequestParam Optional<String> name, @RequestParam Optional<String> surname,
-			@RequestParam Optional<String> email, @RequestParam Optional<String> number) {
-		if (name.isPresent()) {
-			return ResponseEntity.ok(clients.findByName(name.get()));
+			@RequestParam(required = false) String name, @RequestParam(required = false) String surname,
+			@RequestParam(required = false) String email, @RequestParam(required = false) String number) {
+		if (name != null) {
+			return ResponseEntity.ok(clients.findByName(name));
 		}
 
-		if (surname.isPresent()) {
-			return ResponseEntity.ok(clients.findBySurname(surname.get()));
+		if (surname != null) {
+			return ResponseEntity.ok(clients.findBySurname(surname));
 		}
 
-		if (email.isPresent()) {
-			return ResponseEntity.ok(clients.findByEmail(email.get()));
+		if (email != null) {
+			return ResponseEntity.ok(clients.findByEmail(email));
 		}
 
-		if (number.isPresent()) {
-			return ResponseEntity.ok(clients.findByNumber(number.get()));
+		if (number != null) {
+			return ResponseEntity.ok(clients.findByNumber(number));
 		}
 
 		return ResponseEntity.ok(clients.findAll());
@@ -101,8 +99,8 @@ public class ClientsController {
 	}
 
 	@DeleteMapping("{id}")
-	public ResponseEntity<String> deleteClient(@PathVariable Integer id, @RequestParam Optional<String> token) {
-		if (token.isPresent() && token.get().equals(AccessTokens.getSecurityKey())) {
+	public ResponseEntity<String> deleteClient(@PathVariable Integer id, @RequestParam String token) {
+		if (token != null && token.equals(AccessTokens.getSecurityKey())) {
 			Client client = clients.findById(id).get();
 			clients.deleteById(id);
 
