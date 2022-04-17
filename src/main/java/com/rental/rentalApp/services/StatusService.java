@@ -5,6 +5,8 @@ import com.rental.rentalApp.repositories.StatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StatusService {
     private final StatusRepository statusRepository;
@@ -14,8 +16,13 @@ public class StatusService {
         this.statusRepository = statusRepository;
     }
     public String updateStatus(int statusID , String status){
-
-        return "Status changed from "+""+" to "+status;
+        String previousStatus = statusRepository.findById(statusID).getStatus();
+        statusRepository.findById(statusID).setStatus(status);
+        statusRepository.save(statusRepository.findById(statusID));
+        return "Status changed from "+previousStatus+" to "+status;
+    }
+    public List<Status> getStatusByStatus(String status){
+        return statusRepository.findByStatus(status);
     }
 }
 
