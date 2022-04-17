@@ -1,4 +1,5 @@
 package com.rental.rentalApp.entities;
+import java.time.Duration;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -15,6 +16,10 @@ public class Rental {
 	 @ManyToOne
 	 @JoinColumn(name = "ClientID", nullable = false)
 	  private Client client;
+
+	@ManyToOne
+	@JoinColumn(name = "EmployeeID", nullable = false)
+	private Employee employee;
 	 
 	 @ManyToOne
 	 @JoinColumn(name = "VehicleID", nullable = false)
@@ -29,7 +34,7 @@ public class Rental {
 	  private Status status;
 	 
 	 @ManyToOne
-	 @JoinColumn(name = "ReviewID", nullable = false)
+	 @JoinColumn(name = "ReviewID", nullable = true)
 	  private Review review;
 	 
 	 @Column(name = "StartDate")
@@ -43,13 +48,13 @@ public class Rental {
 	 
 	 public Rental() {}
 	 
-	 public Rental(String address, Client client, Vehicle vehicle, PaymentMethod paymentMethod, Status status, Review review, Date startDate, Date endDate, double balance) {
+	 public Rental(String address, Client client, Employee employee, Vehicle vehicle, PaymentMethod paymentMethod, Status status, Date startDate, Date endDate, double balance) {
 	        this.setAddress(address);
 	        this.setClient(client);
+			this.setEmployee(employee);
 	        this.setVehicle(vehicle);
 	        this.setAPaymentMethod(paymentMethod);
 	        this.setStatus(status);
-			this.setReview(review);
 	        this.setStartDate(startDate);
 	        this.setEndDate(endDate);
 	        this.setBalance(balance);
@@ -62,6 +67,7 @@ public class Rental {
 	 
 	 public String getAddress() { return this.address; }
 	 public Client getClient() { return this.client; }
+	 public Employee getEmployee() { return employee; }
 	 public Vehicle getVehicle() { return this.vehicle; }
 	 public PaymentMethod getPaymentMethod() { return this.paymentMethod; }
 	 public Status getStatus() { return this.status; }
@@ -77,8 +83,10 @@ public class Rental {
 	 public void setClient(Client client) {
 	        this.client= client;
 	 }
-	 
-	 public void setVehicle(Vehicle vehicle) {
+
+	public void setEmployee(Employee employee) { this.employee = employee; }
+
+	public void setVehicle(Vehicle vehicle) {
 	        this.vehicle = vehicle;
 	 }
 	 
@@ -105,4 +113,8 @@ public class Rental {
 	 public void setBalance(Double balance) {
 	        this.balance = balance ; 
 	 }
+
+	public Duration calculateDuration() {
+		return Duration.between(this.startDate.toInstant(), this.endDate.toInstant());
+	}
 }

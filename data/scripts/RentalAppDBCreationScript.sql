@@ -121,7 +121,7 @@ CREATE TABLE [Rental] (
   [VehicleID] [INT] NOT NULL,
   [PaymentMethodID] [INT] NOT NULL,
   [StatusID] [INT] NOT NULL,
-  [ReviewID] [INT] NOT NULL,
+  [ReviewID] [INT] NULL,
   [Address] [varchar](500) NOT NULL,
   [StartDate] [DATETIME] NOT NULL,
   [EndDate] [DATETIME] NOT NULL,

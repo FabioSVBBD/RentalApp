@@ -166,7 +166,7 @@ VALUES
     (3, 5, 1, 2, 2, 1, '1984 Thomas St, Pietermaritzburg, KwaZulu-Natal', '2021-01-01', '2021-01-03', 1050),
     (2, 3, 2, 2, 4, 2, '416 Diesel Street, Westonaria, Gauteng', '2022-03-25', '2022-03-26', 400),
     (5, 3, 3, 2, 4, 3, '566 Akasia St, Pietermaritzburg, KwaZulu-Natal', '2022-03-25', '2022-03-30', 1250),
-    (1, 2, 4, 3, 1, 1, '899 Stanley Rd,  Durban, KwaZulu-Natal', '2021-05-15', '2021-05-25', 5000),
-    (6, 1, 5, 1, 3, 2, '1416 Market St, Johannesburg, Gauteng', '2021-02-11', '2021-02-13', 428),
-    (7, 9, 6, 4, 4, 3, '2482 Schoeman St, Pretoria,  Gauteng', '2021-11-10', '2021-11-15', 1000);
+    (1, 2, 4, 3, 1, null, '899 Stanley Rd,  Durban, KwaZulu-Natal', '2021-05-15', '2021-05-25', 5000),
+    (6, 1, 5, 1, 3, null, '1416 Market St, Johannesburg, Gauteng', '2021-02-11', '2021-02-13', 428),
+    (7, 9, 6, 4, 4, null, '2482 Schoeman St, Pretoria,  Gauteng', '2021-11-10', '2021-11-15', 1000);
 GO

@@ -18,11 +18,13 @@ public class RentalController {
 
     @Autowired
     private RentalService rentalService;
+    final private ReviewService reviewService;
 
-    private RentalController(RentalService rentalService)
+    private RentalController(RentalService rentalService, ReviewService reviewService)
     {
         //this.rentals = rentals;
         this.rentalService = rentalService;
+        this.reviewService = reviewService;
     }
 
     @GetMapping("")
@@ -57,6 +59,27 @@ public class RentalController {
         rentalService.updateRental(id, rental);
     }
 
+    @PostMapping("rental-app/{id}/add-review")
+    public ResponseEntity<String> postReview(@PathVariable Integer id, @RequestBody Review review) {
+
+        if (review == null)
+            return ResponseEntity.badRequest().build();
+
+        if (!rentalService.getRental(id).isPresent())
+            return ResponseEntity.badRequest().build();
+
+        Rental rental = rentalService.getRental(id).get();
+
+        if (rental.getReview() != null)
+            return ResponseEntity.badRequest().build();
+
+        rental.setReview(review);
+
+        reviewService.addReview(review);
+        rentalService.updateRental(id, rental);
+
+        return ResponseEntity.ok(String.format("Review: %s for rental: %s saved successfully", review, rental));
+    }
 
     //////
 
