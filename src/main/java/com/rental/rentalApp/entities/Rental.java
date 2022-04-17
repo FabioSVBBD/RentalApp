@@ -7,11 +7,11 @@ import javax.persistence.*;
 public class Rental {
 	 @Id
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)
-	 private int RentalID;
+	 private int rentalID;
 	 
 	 @Column(name = "Address")
 	  private String address;
-	 
+
 	 @ManyToOne
 	 @JoinColumn(name = "ClientID", nullable = false)
 	  private Client client;
@@ -57,7 +57,7 @@ public class Rental {
 	 
 	 @Override
 	    public String toString() {
-		 	return "Rental [ ID = " + RentalID + ", Address = " + address  + ", Client = " +  client  + ", Vehicle = " +  vehicle  + ", PaymentMethod = " +  paymentMethod + ", Status = " +  status  + ", Review = " +  review  + ", StartDate = " +  startDate  + ", EndDate = " +  endDate  + ", Balance = " +  balance + " ]";
+		 	return "Rental [ ID = " + rentalID + ", Address = " + address  + ", Client = " +  client  + ", Vehicle = " +  vehicle  + ", PaymentMethod = " +  paymentMethod + ", Status = " +  status  + ", Review = " +  review  + ", StartDate = " +  startDate  + ", EndDate = " +  endDate  + ", Balance = " +  balance + " ]";
 	    }
 	 
 	 public String getAddress() { return this.address; }
