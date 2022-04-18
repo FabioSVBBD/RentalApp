@@ -9,22 +9,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("rental-app/api/vehicle")
+@RequestMapping("rental-app/api/vehicles")
 public class VehicleController {
 
-  private final VehicleRepository vehicles;
+  	private final VehicleRepository vehicleRepository;
 
-  //constructor
-	private VehicleController(VehicleRepository vehicle) {
-		this.vehicles = vehicle;
+	private VehicleController(VehicleRepository repository) {
+		this.vehicleRepository = repository;
 	}
 
-	//update entities by the VIN{id}
+	// Update vehicle by the VIN{id}
 	@PatchMapping("{id}")
 	public ResponseEntity<String> patchVehicle(@PathVariable Integer id, @RequestBody Vehicle newData) {
 		StringBuilder response = new StringBuilder();
 
-		Vehicle vehicle = vehicles.findById(id).get();
+		Vehicle vehicle = vehicleRepository.findById(id).get();
 
 		if (vehicle == null) {
 			return ResponseEntity.badRequest().build();
@@ -50,26 +49,26 @@ public class VehicleController {
 			response.append(String.format("Daily rate for vehicle updated: "+newData.getDailyRate() +"\n"));
 		}
 
-	if (newData.getMileage() != null) {
-			vehicle.setMileage(newData.getMileage());
-			response.append(String.format("Mileage for vehicle updated: "+newData.getMileage() +"\n"));
+		if (newData.getMileage() != null) {
+				vehicle.setMileage(newData.getMileage());
+				response.append(String.format("Mileage for vehicle updated: "+newData.getMileage() +"\n"));
 		}
 
-	//avaiable will never be null
-	vehicle.setAvailable(newData.isAvailable());
+		// avaiable will never be null
+		vehicle.setAvailable(newData.isAvailable());
 		response.append(String.format("Availablity for vehicle updated: "+newData.isAvailable() +"\n"));
 
 		return ResponseEntity.ok(response.toString());
 	}
 
-  //remove vehicle from bd
+  // Delete Vehicle
 	@DeleteMapping("{id}")
 	public ResponseEntity<String> deleteVehicle(@PathVariable Integer id, @RequestParam Optional<String> token) {
 		final String securityKey = "g2G7aoTyqQeDG4liY5ZmBAQr8V7M4v3BKSeUNd5u";
 
 		if (token.isPresent() && token.get().equals(securityKey)) {
-			Vehicle vehicle = vehicles.findById(id).get();
-			vehicles.deleteById(id);
+			Vehicle vehicle = vehicleRepository.findById(id).get();
+			vehicleRepository.deleteById(id);
 
 			return ResponseEntity.ok(String.format("Deleted "+vehicle.getVIN()));
 		}
@@ -78,22 +77,40 @@ public class VehicleController {
 	}
 
 	// Get all vehicles
-	@GetMapping("/")
-    List<Vehicle> getAllVehicles() {
-        return vehicles.findAll();
+	@GetMapping("")
+    ResponseEntity<List<Vehicle>> getAllVehicles(@RequestParam(required = false) Boolean available) {
+        
+		if( available != null){
+			return ResponseEntity.ok(vehicleRepository.findByAvailable(available));
+		}
+		
+		return ResponseEntity.ok(vehicleRepository.findAll());
     }
 
-    // @GetMapping("/vehicles/available={available}")
-    // List<Vehicle> findAvailable(){
+	// Add a new vehicle
+	@PostMapping("")
+	ResponseEntity<String> newVehicle(@RequestBody Vehicle newVehicle){
+		
+		if (newVehicle == null || vehicleRepository.findByVIN(newVehicle.getVIN()) != null) {
+			return ResponseEntity.badRequest().build();
+		}else{
+			vehicleRepository.save(newVehicle);
+		}
+		
+		return ResponseEntity.ok(String.format("Vehicle %s added", newVehicle.getVIN()));
+	}
 
-    // }
+   //  Single vehicle
+    @GetMapping("{id}")
+    ResponseEntity<Vehicle> getVehicle(@PathVariable int id) {
 
-    // Single item
-    // @GetMapping("/vehicles/{id}")
-    // Vehicle one(@PathVariable Long id) {
+		Vehicle vehicle = vehicleRepository.findById(id).get();
 
-    //     return repository.findById(id)
-    //     .orElseThrow(() -> new VehicleNotFoundException(id));
-    // }
+		if(vehicle == null){
+			return ResponseEntity.badRequest().build();
+		}
+
+		return ResponseEntity.ok(vehicle);
+    }
 
 }
