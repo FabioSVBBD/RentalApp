@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,16 +48,38 @@ public class RentalController {
         else return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("")
+    @PostMapping("rental-app/add-rental")
     public void newRental(@RequestBody Rental rental)
     {
         rentalService.addRental(rental);
     }
 
-    @PutMapping("")
+    @PutMapping("rental-app/{id}/update-rental")
     public void updateRental(@RequestParam Integer id,@RequestBody Rental rental)
     {
         rentalService.updateRental(id, rental);
+    }
+
+    @GetMapping("rental-app/{id}/get-total-cost")
+    public ResponseEntity<BigDecimal> getTotalCost(@PathVariable Integer id)
+    {
+        if(rentalService.getRental(id).isPresent())
+        {
+            return  ResponseEntity.ok(rentalService.getTotalCost(id));
+        }
+        else
+            return ResponseEntity.badRequest().build();
+    }
+
+    @PutMapping("rental-app/{id}/make-payment")
+    public void makePayment(@PathVariable Integer id, @RequestBody Rental rental, @RequestParam BigDecimal payment)
+    {
+        if(rentalService.getRental(id).isPresent())
+        {
+            rentalService.makePayment(id, rental, payment);
+        }
+        else
+            return;ResponseEntity.badRequest().build();
     }
 
     @PostMapping("rental-app/{id}/add-review")

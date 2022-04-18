@@ -1,5 +1,7 @@
 package com.rental.rentalApp.services;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -42,5 +44,44 @@ public class RentalService {
     public void deleteRental(Integer id)
     {
         rentalRepository.deleteById(id);
+    }
+
+    public BigDecimal getTotalCost(Integer id)
+    {
+        Rental rental = rentalRepository.findByRentalID(id);
+        Vehicle vehicle = rental.getVehicle();
+        BigDecimal deposit = vehicle.getDepositAmount();
+        double balance = rental.getBalance();
+
+        double totalCost = deposit.doubleValue() + balance;
+
+        return BigDecimal.valueOf(totalCost);
+
+        //LocalDateTime rentalDuration = getDuration() --> + any conversions if necessary
+
+        //BigDecimal rentalCost = vehicle.getDayRate/HourlyRate*rentalDuration ++ if statements when necessary
+
+        //BigDecimal totalCost = deposit + rentalCost
+    }
+
+    public double calculateRentalCost(Integer id)
+    {
+        Rental rental = rentalRepository.findByRentalID(id);
+        Vehicle vehicle = rental.getVehicle();
+        BigDecimal dailyRate = vehicle.getDailyRate();
+        BigDecimal hourlyRate = vehicle.getHourlyRate();
+
+        double rentalCost = 2.5;
+        return rentalCost;
+    }
+
+    public void makePayment(Integer id, Rental rental, BigDecimal payment)
+    {
+        double balance = rental.getBalance();
+        double newBalance = balance - payment.doubleValue();
+
+        rental.setBalance(newBalance);
+
+        rentalRepository.save(rental);
     }
 }
