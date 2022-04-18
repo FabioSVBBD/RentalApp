@@ -68,7 +68,7 @@ public class RentalController {
             return  ResponseEntity.ok(rentalService.getTotalCost(id));
         }
         else
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.noContent().build();
     }
 
     @PutMapping("rental-app/{id}/make-payment")
@@ -79,7 +79,7 @@ public class RentalController {
             rentalService.makePayment(id, rental, payment);
         }
         else
-            return;ResponseEntity.badRequest().build();
+            return;ResponseEntity.noContent().build();
     }
 
     @PostMapping("rental-app/{id}/add-review")
