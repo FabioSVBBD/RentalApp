@@ -2,7 +2,6 @@ package com.rental.rentalApp.entities;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.Year;
 import java.util.Date;
 
 @Entity
