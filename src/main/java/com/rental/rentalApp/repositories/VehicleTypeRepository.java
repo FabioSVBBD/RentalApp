@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface VehicleTypeRepository extends CrudRepository<VehicleType, Integer> {
     List<VehicleType> findByType(String type);
+    List<VehicleType> findAll();
 }
