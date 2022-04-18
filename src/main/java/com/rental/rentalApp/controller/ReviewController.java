@@ -18,6 +18,12 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
+    @GetMapping("rental-app/reviews/view-reviews")
+    public ResponseEntity<Iterable<Review>> getReviews(@RequestParam(required = false) Integer limit) {
+        if (limit == null) limit = -1;
+        return ResponseEntity.ok(reviewService.getReviews(limit));
+    }
+
     @GetMapping("rental-app/reviews/view-top-reviews")
     public ResponseEntity<Iterable<Review>> getTopReviews(
             @RequestParam(required = false) Integer limit) {
@@ -25,8 +31,8 @@ public class ReviewController {
         return ResponseEntity.ok(reviewService.getTopReviews(limit));
     }
 
-    @GetMapping("rental-app/reviews/view-reviews")
-    public ResponseEntity<Iterable<Review>> getTopReviews(
+    @GetMapping("rental-app/reviews/view-reviews-by-date")
+    public ResponseEntity<Iterable<Review>> getReviewsByDate(
             @RequestParam(required = false) LocalDateTime startDateTime,
             @RequestParam(required = false) LocalDateTime endDateTime) {
 

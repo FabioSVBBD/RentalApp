@@ -1,7 +1,7 @@
 package com.rental.rentalApp.services;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +24,18 @@ public class RentalService {
         rentalRepository.findAll()
                 .forEach(rentals::add);
         return rentals;
+    }
+
+    public List<Rental> getAllRentalsByClient(Client client) {
+        return rentalRepository.findByClient(client);
+    }
+
+    public List<Rental> getAllRentalsByEmployee(Employee employee) {
+        return rentalRepository.findByEmployee(employee);
+    }
+
+    public List<Rental> getAllRentalsByVehicle(Vehicle vehicle) {
+        return rentalRepository.findByVehicle(vehicle);
     }
 
     public Optional<Rental> getRental(Integer id)
@@ -82,5 +94,10 @@ public class RentalService {
         rental.setBalance(newBalance);
 
         rentalRepository.save(rental);
+    }
+
+    public Duration getDuration(Integer id) {
+        Rental rental = rentalRepository.findByRentalID(id);
+        return Duration.between(rental.getStartDate().toInstant(), rental.getEndDate().toInstant());
     }
 }

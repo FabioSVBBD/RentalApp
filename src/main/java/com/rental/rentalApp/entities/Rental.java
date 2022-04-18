@@ -1,6 +1,5 @@
 package com.rental.rentalApp.entities;
 import java.math.BigDecimal;
-import java.time.Duration;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -115,7 +114,4 @@ public class Rental {
 	        this.balance = balance ; 
 	 }
 
-	public Duration calculateDuration() {
-		return Duration.between(this.startDate.toInstant(), this.endDate.toInstant());
-	}
 }
