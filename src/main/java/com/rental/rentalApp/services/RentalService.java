@@ -51,11 +51,10 @@ public class RentalService {
         Rental rental = rentalRepository.findByRentalID(id);
         Vehicle vehicle = rental.getVehicle();
         BigDecimal deposit = vehicle.getDepositAmount();
-        double balance = rental.getBalance();
+        BigDecimal balance = rental.getBalance();
+        BigDecimal totalCost = deposit.add(balance);
 
-        double totalCost = deposit.doubleValue() + balance;
-
-        return BigDecimal.valueOf(totalCost);
+        return totalCost;
 
         //LocalDateTime rentalDuration = getDuration() --> + any conversions if necessary
 
@@ -77,8 +76,8 @@ public class RentalService {
 
     public void makePayment(Integer id, Rental rental, BigDecimal payment)
     {
-        double balance = rental.getBalance();
-        double newBalance = balance - payment.doubleValue();
+        BigDecimal balance = rental.getBalance();
+        BigDecimal newBalance = balance.subtract(payment);
 
         rental.setBalance(newBalance);
 

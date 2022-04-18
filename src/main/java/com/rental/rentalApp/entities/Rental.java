@@ -1,4 +1,5 @@
 package com.rental.rentalApp.entities;
+import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.Date;
 
@@ -44,11 +45,11 @@ public class Rental {
 	  private Date endDate;
 	 
 	 @Column(name = "Balance")
-	  private Double balance;
+	  private BigDecimal balance;
 	 
 	 public Rental() {}
 	 
-	 public Rental(String address, Client client, Employee employee, Vehicle vehicle, PaymentMethod paymentMethod, Status status, Date startDate, Date endDate, double balance) {
+	 public Rental(String address, Client client, Employee employee, Vehicle vehicle, PaymentMethod paymentMethod, Status status, Date startDate, Date endDate, BigDecimal balance) {
 	        this.setAddress(address);
 	        this.setClient(client);
 			this.setEmployee(employee);
@@ -74,7 +75,7 @@ public class Rental {
 	 public Review getReview() { return this.review; }
 	 public Date getStartDate() { return this.startDate; }
 	 public Date getEndDate() { return this.endDate; }
-	 public Double getBalance() { return this.balance; }
+	 public BigDecimal getBalance() { return this.balance; }
 	 
 	 public void setAddress(String address) {
 	        this.address = address;
@@ -110,7 +111,7 @@ public class Rental {
 	        this.endDate = endDate;
 	 }
 	 
-	 public void setBalance(Double balance) {
+	 public void setBalance(BigDecimal balance) {
 	        this.balance = balance ; 
 	 }
 
