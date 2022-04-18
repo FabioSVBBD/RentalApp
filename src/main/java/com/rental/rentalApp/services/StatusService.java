@@ -21,7 +21,7 @@ public class StatusService {
         statusRepository.save(statusRepository.findById(statusID));
         return "Status changed from "+previousStatus+" to "+status;
     }
-    public List<Status> getStatusByStatus(String status){
+    public Status getStatusByStatus(String status){
         return statusRepository.findByStatus(status);
     }
 }
