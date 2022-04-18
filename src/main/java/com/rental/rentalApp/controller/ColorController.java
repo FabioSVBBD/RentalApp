@@ -23,5 +23,4 @@ public class ColorController {
     ResponseEntity<List<Color>> getAllColors() {
 		return ResponseEntity.ok(colorRepository.findAll());
     }
-    
 }

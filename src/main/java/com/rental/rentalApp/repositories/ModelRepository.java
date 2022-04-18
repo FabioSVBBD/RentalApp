@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ModelRepository extends CrudRepository<Model, Integer> {
   List<Model> findByModelName(String modelName);
+  List<Model> findAll();
 }

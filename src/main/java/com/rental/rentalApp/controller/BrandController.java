@@ -23,5 +23,4 @@ public class BrandController {
     ResponseEntity<List<Brand>> getAllBrands() {
 		return ResponseEntity.ok(brandRepository.findAll());
     }
-    
 }
