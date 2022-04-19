@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ColorRepository extends CrudRepository<Color, Integer> {
   List<Color> findByColorName(String colorName);
+  List<Color> findAll();
 }
