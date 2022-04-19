@@ -33,8 +33,8 @@ public class Rental {
 	 @JoinColumn(name = "StatusID", nullable = false)
 	  private Status status;
 	 
-	 @ManyToOne
-	 @JoinColumn(name = "ReviewID", nullable = true)
+	 @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	 @JoinColumn(name = "ReviewID", nullable = false)
 	  private Review review;
 	 
 	 @Column(name = "StartDate")

@@ -48,7 +48,7 @@ public class RentalService {
         rentalRepository.save(rental);
     }
 
-    public void updateRental(Integer id, Rental rental)
+    public void updateRental(Rental rental)
     {
         rentalRepository.save(rental);
     }

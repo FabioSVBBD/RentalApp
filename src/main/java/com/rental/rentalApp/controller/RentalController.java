@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("rental-app/api/rentals")
 public class RentalController {
 
     //private RentalRepository rentals;
@@ -52,7 +53,7 @@ public class RentalController {
         else return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("rental-app/add-rental")
+    @PostMapping("add-rental")
     public ResponseEntity<String> newRental(@RequestBody Rental rental)
     {
         if (rental == null) return ResponseEntity.badRequest().build();
@@ -61,8 +62,8 @@ public class RentalController {
         return ResponseEntity.ok(String.format("Rental %s saved successfully", rental));
     }
 
-    @PutMapping("rental-app/{id}/update-rental")
-    public ResponseEntity<String> patchRental(@RequestParam Integer id, @RequestBody Rental updateData) {
+    @PatchMapping("{id}/update-rental")
+    public ResponseEntity<String> patchRental(@PathVariable Integer id, @RequestBody Rental updateData) {
 
         StringBuilder response = new StringBuilder();
 
@@ -120,12 +121,12 @@ public class RentalController {
             response.append(String.format("Rental review updated: %s\n", updateData.getReview()));
         }
 
-//        rentalService.updateRental(id, rental);
+//        rentalService.updateRental(rental);
 
         return ResponseEntity.ok(response.toString());
     }
 
-    @GetMapping("rental-app/{id}/get-total-cost")
+    @GetMapping("{id}/get-total-cost")
     public ResponseEntity<BigDecimal> getTotalCost(@PathVariable Integer id)
     {
         if(rentalService.getRental(id).isPresent())
@@ -136,7 +137,7 @@ public class RentalController {
             return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("rental-app/{id}/make-payment")
+    @PutMapping("{id}/make-payment")
     public void makePayment(@PathVariable Integer id, @RequestBody Rental rental, @RequestParam BigDecimal payment)
     {
         if(rentalService.getRental(id).isPresent())
@@ -147,7 +148,7 @@ public class RentalController {
             return;ResponseEntity.noContent().build();
     }
 
-    @PostMapping("rental-app/{id}/add-rental-review")
+    @PostMapping("{id}/add-rental-review")
     public ResponseEntity<String> addRentalReview(@PathVariable Integer id, @RequestBody Review review) {
 
         if (review == null)
@@ -157,9 +158,9 @@ public class RentalController {
             return ResponseEntity.badRequest().build();
 
         Rental rental = rentalService.getRental(id).get();
-
-        if (rental.getReview() != null)
-            return ResponseEntity.badRequest().build();
+//
+//        if (rental.getReview() != null)
+//            return ResponseEntity.badRequest().build();
 
         rental.setReview(review);
         reviewService.addReview(review);

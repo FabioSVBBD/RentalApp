@@ -36,7 +36,7 @@ public class ReviewService {
     public List<Review> getTopReviews(int limit) {
         List<Review> reviews = reviewRepository.findAll();
         if (limit == -1) limit = reviews.size();
-        return reviews.stream().sorted(Comparator.comparing(Review::getRating)).limit(limit).toList();
+        return reviews.stream().sorted(Comparator.comparing(Review::getRating).reversed()).limit(limit).toList();
     }
 
     public List<Review> getReviewsWithin(LocalDateTime startDate, LocalDateTime endDate) {
