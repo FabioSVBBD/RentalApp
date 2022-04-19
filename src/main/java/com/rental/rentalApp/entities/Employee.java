@@ -2,22 +2,22 @@ package com.rental.rentalApp.entities;
 
 import javax.persistence.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 public class Employee extends Person{
     
     
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	protected Integer employeeID;
-
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	protected Integer employeeID; 
+    
     @Column(name = "dateOfEmployment")
-    private LocalDateTime dateOfEmployment;
+    private LocalDate dateOfEmployment;
 
     protected Employee(){}
 
-    Employee(String name, String surname, String number, LocalDateTime dateOfEmployment){
+    Employee(String name, String surname, String number, LocalDate dateOfEmployment){
     	super(name, surname, number);
         this.dateOfEmployment = dateOfEmployment;
     }
@@ -26,11 +26,11 @@ public class Employee extends Person{
     public String toString() {
         return "Employee [ id = "+ employeeID +", name = "+name+", surname = "+surname+", phone="+ number +", dateOfEmployment = "+dateOfEmployment+" ]";
     }
-
     
-    public LocalDateTime getDateOfEmployment() { return this.dateOfEmployment; }
 
-    public void setDateOfEmployment(LocalDateTime dateOfEmployment) {
+    public LocalDate getDateOfEmployment() { return this.dateOfEmployment; }
+
+    public void setDateOfEmployment(LocalDate dateOfEmployment) {
         this.dateOfEmployment = dateOfEmployment;
     }
 }
