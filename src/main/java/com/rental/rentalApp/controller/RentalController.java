@@ -18,13 +18,10 @@ public class RentalController {
 
     @Autowired
     private RentalService rentalService;
-    final private ReviewService reviewService;
-
-    private RentalController(RentalService rentalService, ReviewService reviewService)
+    private RentalController(RentalService rentalService)
     {
         //this.rentals = rentals;
         this.rentalService = rentalService;
-        this.reviewService = reviewService;
     }
 
     @GetMapping("")
@@ -174,7 +171,7 @@ public class RentalController {
 //            return ResponseEntity.badRequest().build();
 
         rental.setReview(review);
-        reviewService.addReview(review);
+        rentalService.updateRental(rental);
 
         return ResponseEntity.ok(String.format("Review: %s for rental: %s saved successfully", review, rental));
     }

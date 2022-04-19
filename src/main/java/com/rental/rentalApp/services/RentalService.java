@@ -10,6 +10,7 @@ import com.rental.rentalApp.entities.*;
 import com.rental.rentalApp.repositories.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -112,4 +113,5 @@ public class RentalService {
         Rental rental = rentalRepository.findByRentalID(id);
         return Duration.between(rental.getStartDate().toInstant(), rental.getEndDate().toInstant());
     }
+
 }
