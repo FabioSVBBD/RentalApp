@@ -104,21 +104,4 @@ public class RentalController {
         return ResponseEntity.ok(String.format("Review: %s for rental: %s saved successfully", review, rental));
     }
 
-    //////
-
-    /*private StatusService statusService;
-
-    public RentalController(StatusService statusService) {
-        this.statusService = statusService;
-    }
-
-    @GetMapping("rental-app/update-status/{statusID}/{status}")
-    public String updateStatus(@PathVariable Integer statusID, @PathVariable String status){
-        return statusService.updateStatus(statusID,status);
-    }
-    @GetMapping("rental-app/get-status/{status}")
-    public List<Status> getStatus(@PathVariable String status){
-        return statusService.getStatusByStatus(status);
-    } */
-
 }
