@@ -15,11 +15,10 @@ public class StatusService {
     public StatusService(StatusRepository statusRepository) {
         this.statusRepository = statusRepository;
     }
-    public String updateStatus(int statusID , String status){
-        String previousStatus = statusRepository.findById(statusID).getStatus();
+    public String updateStatus(int statusID , String status){;
         statusRepository.findById(statusID).setStatus(status);
         statusRepository.save(statusRepository.findById(statusID));
-        return "Status changed from "+previousStatus+" to "+status;
+        return statusRepository.findById(statusID).getStatus() ;
     }
     public Status getStatusByStatus(String status){
         return statusRepository.findByStatus(status);
