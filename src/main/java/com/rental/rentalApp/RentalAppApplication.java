@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.math.BigDecimal;
+import java.time.Duration;
 
 @SpringBootApplication
 public class RentalAppApplication {
@@ -17,24 +18,13 @@ public class RentalAppApplication {
 		SpringApplication.run(RentalAppApplication.class, args);
 	}
 
-	// Writes all clients to command line [REMOVE]
-	@Bean
-	public CommandLineRunner getAllClients(ClientRepository repo) {
-		return (args) -> {
-			System.out.println("Clients");
-			for (Client client : repo.findAll()) {
-				System.out.println(client);
-			}
-		};
-	}
-
 	@Bean
 	public CommandLineRunner getTotalCost(RentalService rentalService)
 	{
 		return (args) -> {
 			System.out.println("Total Cost");
-			BigDecimal cost = rentalService.getTotalCost(1);
-			System.out.println();
+			Duration duration = rentalService.getDuration(1);
+			System.out.println(duration);
 		};
 	}
 
