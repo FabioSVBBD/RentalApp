@@ -1,7 +1,7 @@
 package com.rental.rentalApp.services;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -26,6 +26,18 @@ public class RentalService {
         return rentals;
     }
 
+    public List<Rental> getAllRentalsByClient(Client client) {
+        return rentalRepository.findByClient(client);
+    }
+
+    public List<Rental> getAllRentalsByEmployee(Employee employee) {
+        return rentalRepository.findByEmployee(employee);
+    }
+
+    public List<Rental> getAllRentalsByVehicle(Vehicle vehicle) {
+        return rentalRepository.findByVehicle(vehicle);
+    }
+
     public Optional<Rental> getRental(Integer id)
     {
         return rentalRepository.findById(id);
@@ -36,7 +48,7 @@ public class RentalService {
         rentalRepository.save(rental);
     }
 
-    public void updateRental(Integer id, Rental rental)
+    public void updateRental(Rental rental)
     {
         rentalRepository.save(rental);
     }
@@ -51,11 +63,10 @@ public class RentalService {
         Rental rental = rentalRepository.findByRentalID(id);
         Vehicle vehicle = rental.getVehicle();
         BigDecimal deposit = vehicle.getDepositAmount();
-        double balance = rental.getBalance();
+        BigDecimal balance = rental.getBalance();
+        BigDecimal totalCost = deposit.add(balance);
 
-        double totalCost = deposit.doubleValue() + balance;
-
-        return BigDecimal.valueOf(totalCost);
+        return totalCost;
 
         //LocalDateTime rentalDuration = getDuration() --> + any conversions if necessary
 
@@ -64,24 +75,41 @@ public class RentalService {
         //BigDecimal totalCost = deposit + rentalCost
     }
 
-    public double calculateRentalCost(Integer id)
+    public BigDecimal calculateRentalCost(Integer id)
     {
         Rental rental = rentalRepository.findByRentalID(id);
         Vehicle vehicle = rental.getVehicle();
+
+        BigDecimal rentalCost;
         BigDecimal dailyRate = vehicle.getDailyRate();
         BigDecimal hourlyRate = vehicle.getHourlyRate();
 
-        double rentalCost = 2.5;
+        Duration totalRentalTime = getDuration(id);
+
+        if(totalRentalTime.toHours() < 24)
+        {
+             rentalCost = hourlyRate.multiply(BigDecimal.valueOf(totalRentalTime.toHours()));
+        }
+        else
+        {
+             rentalCost = dailyRate.multiply(BigDecimal.valueOf(totalRentalTime.toDays()));
+        }
+
         return rentalCost;
     }
 
     public void makePayment(Integer id, Rental rental, BigDecimal payment)
     {
-        double balance = rental.getBalance();
-        double newBalance = balance - payment.doubleValue();
+        BigDecimal balance = rental.getBalance();
+        BigDecimal newBalance = balance.subtract(payment);
 
         rental.setBalance(newBalance);
 
         rentalRepository.save(rental);
+    }
+
+    public Duration getDuration(Integer id) {
+        Rental rental = rentalRepository.findByRentalID(id);
+        return Duration.between(rental.getStartDate().toInstant(), rental.getEndDate().toInstant());
     }
 }
