@@ -136,6 +136,17 @@ public class RentalController {
             return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("rental-app/{id}/get-rental-cost")
+    public ResponseEntity<BigDecimal> getRentalCost(@PathVariable Integer id)
+    {
+        if(rentalService.getRental(id).isPresent())
+        {
+            return  ResponseEntity.ok(rentalService.calculateRentalCost(id));
+        }
+        else
+            return ResponseEntity.noContent().build();
+    }
+
     @PutMapping("rental-app/{id}/make-payment")
     public void makePayment(@PathVariable Integer id, @RequestBody Rental rental, @RequestParam BigDecimal payment)
     {

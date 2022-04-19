@@ -75,14 +75,26 @@ public class RentalService {
         //BigDecimal totalCost = deposit + rentalCost
     }
 
-    public double calculateRentalCost(Integer id)
+    public BigDecimal calculateRentalCost(Integer id)
     {
         Rental rental = rentalRepository.findByRentalID(id);
         Vehicle vehicle = rental.getVehicle();
+
+        BigDecimal rentalCost;
         BigDecimal dailyRate = vehicle.getDailyRate();
         BigDecimal hourlyRate = vehicle.getHourlyRate();
 
-        double rentalCost = 2.5;
+        Duration totalRentalTime = getDuration(id);
+
+        if(totalRentalTime.toHours() < 24)
+        {
+             rentalCost = hourlyRate.multiply(BigDecimal.valueOf(totalRentalTime.toHours()));
+        }
+        else
+        {
+             rentalCost = dailyRate.multiply(BigDecimal.valueOf(totalRentalTime.toDays()));
+        }
+
         return rentalCost;
     }
 
