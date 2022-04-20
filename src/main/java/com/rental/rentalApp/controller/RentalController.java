@@ -118,7 +118,7 @@ public class RentalController {
         return ResponseEntity.ok(response.toString());
     }
 
-    @GetMapping("{id}/get-total-cost")
+    @GetMapping("{id}/total-cost")
     public ResponseEntity<BigDecimal> getTotalCost(@PathVariable Integer id)
     {
         if(rentalRepository.findById(id).isPresent())
@@ -129,7 +129,7 @@ public class RentalController {
             return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("{id}/get-rental-cost")
+    @GetMapping("{id}/rental-cost")
     public ResponseEntity<BigDecimal> getRentalCost(@PathVariable Integer id)
     {
         if(rentalRepository.findById(id).isPresent())
