@@ -1,8 +1,11 @@
 package com.rental.rentalApp.entities;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
+@Data
 public class Status {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -10,22 +13,6 @@ public class Status {
 
     @Column(name = "Status")
     private String status;
-
-    public Status() {
-    }
-
-    public Status(String status) {
-        this.setStatus(status);
-    }
-    
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
     @Override
     public String toString() {

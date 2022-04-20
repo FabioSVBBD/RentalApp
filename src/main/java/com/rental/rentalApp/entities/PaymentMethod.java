@@ -1,8 +1,11 @@
 package com.rental.rentalApp.entities;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
+@Data
 public class PaymentMethod {
 
     @Id
@@ -16,7 +19,7 @@ public class PaymentMethod {
 
     public PaymentMethod(String methodName)
     {
-        this.setMethod(methodName);
+        this.setMethodName(methodName);
     }
 
     @Override
@@ -25,13 +28,4 @@ public class PaymentMethod {
         return "Payment Method [ ID = " + PaymentMethodID + ", Method = " + methodName + "]";
     }
 
-    public String getMethod()
-    {
-        return this.methodName;
-    }
-
-    public void setMethod(String methodName)
-    {
-        this.methodName = methodName;
-    }
 }

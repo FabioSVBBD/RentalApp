@@ -1,8 +1,11 @@
 package com.rental.rentalApp.entities;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
+@Data
 public class VehicleType {
 
     @Id
@@ -12,26 +15,10 @@ public class VehicleType {
     @Column(name = "Type")
     private String type;
 
-    protected VehicleType() { }
-
-    public VehicleType(String type)
-    {
-        this.setType(type);
-    }
-
     @Override
     public String toString()
     {
         return "Vehicle Type [ ID = " + VehicleTypeID + ", Type = " + type + "]";
     }
 
-    public String getType(String type)
-    {
-        return this.type;
-    }
-
-    public void setType(String type)
-    {
-        this.type = type;
-    }
 }
