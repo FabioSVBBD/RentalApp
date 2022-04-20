@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("rental-app/api/payment-method")
+@RequestMapping("rental-app/api/payment-methods")
 public class PaymentMethodController {
 
     private final PaymentMethodRepository paymentMethodRepository;
