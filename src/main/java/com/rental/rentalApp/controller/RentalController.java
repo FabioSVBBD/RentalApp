@@ -151,7 +151,7 @@ public class RentalController {
             return;ResponseEntity.noContent().build();
     }
 
-    @PostMapping("{id}/add-rental-review")
+    @PostMapping("{id}/review")
     public ResponseEntity<String> addRentalReview(@PathVariable Integer id, @RequestBody Review review) {
 
         if (review == null)
