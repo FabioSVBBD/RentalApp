@@ -29,7 +29,7 @@ public class RentalController {
             @RequestParam(required = false) Vehicle vehicle
     ) {
         if (client != null) return ResponseEntity.ok(rentalRepository.findByClient(client));
-        else if (employee != null) return ResponseEntity.ok(rentalRepository.findByEmployee(employee));
+        if (employee != null) return ResponseEntity.ok(rentalRepository.findByEmployee(employee));
         else if (vehicle != null) return ResponseEntity.ok(rentalRepository.findByVehicle(vehicle));
         else return ResponseEntity.ok(rentalRepository.findAll());
     }
@@ -46,7 +46,7 @@ public class RentalController {
         else return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("add-rental")
+    @PostMapping("")
     public ResponseEntity<String> newRental(@RequestBody Rental rental)
     {
         if (rental == null) return ResponseEntity.badRequest().build();
@@ -54,7 +54,7 @@ public class RentalController {
         return ResponseEntity.ok(String.format("Rental %s saved successfully", rental));
     }
 
-    @PatchMapping("{id}/update-rental")
+    @PatchMapping("{id}")
     public ResponseEntity<String> patchRental(@PathVariable Integer id, @RequestBody Rental updateData) {
 
         StringBuilder response = new StringBuilder();
@@ -118,7 +118,7 @@ public class RentalController {
         return ResponseEntity.ok(response.toString());
     }
 
-    @GetMapping("{id}/get-total-cost")
+    @GetMapping("{id}/total-cost")
     public ResponseEntity<BigDecimal> getTotalCost(@PathVariable Integer id)
     {
         if(rentalRepository.findById(id).isPresent())
@@ -129,7 +129,7 @@ public class RentalController {
             return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("{id}/get-rental-cost")
+    @GetMapping("{id}/rental-cost")
     public ResponseEntity<BigDecimal> getRentalCost(@PathVariable Integer id)
     {
         if(rentalRepository.findById(id).isPresent())
@@ -140,7 +140,7 @@ public class RentalController {
             return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("{id}/make-payment")
+    @PutMapping("{id}/pay")
     public void makePayment(@PathVariable Integer id, @RequestParam BigDecimal payment)
     {
         if(rentalRepository.findById(id).isPresent())
@@ -151,7 +151,7 @@ public class RentalController {
             return;ResponseEntity.noContent().build();
     }
 
-    @PostMapping("{id}/add-rental-review")
+    @PostMapping("{id}/review")
     public ResponseEntity<String> addRentalReview(@PathVariable Integer id, @RequestBody Review review) {
 
         if (review == null)

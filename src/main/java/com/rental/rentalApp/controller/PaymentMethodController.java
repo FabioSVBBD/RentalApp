@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("rental-app/api/payment-method")
+@RequestMapping("rental-app/api/payment-methods")
 public class PaymentMethodController {
 
     private final PaymentMethodRepository paymentMethodRepository;
@@ -17,13 +17,13 @@ public class PaymentMethodController {
         this.paymentMethodRepository = paymentMethodRepository;
     }
 
-    @GetMapping("get-payment-methods")
+    @GetMapping("")
     public ResponseEntity<Iterable<PaymentMethod>> getPaymentMethods()
     {
         return ResponseEntity.ok(paymentMethodRepository.findAll());
     }
 
-    @GetMapping("{id}/get-payment-by-id")
+    @GetMapping("{id}")
     public ResponseEntity<PaymentMethod> getPaymentMethod(@PathVariable Integer id)
     {
         Optional<PaymentMethod> optionalPaymentMethod = paymentMethodRepository.findById(id);
