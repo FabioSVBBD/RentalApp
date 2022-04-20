@@ -12,15 +12,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("rental-app/api/brands")
 public class BrandController {
 
-  private final BrandRepository brandRepository;
+	private final BrandRepository brandRepository;
 
 	private BrandController(BrandRepository repository) {
 		this.brandRepository = repository;
 	}
 
-    // Get all brands
 	@GetMapping("")
-  ResponseEntity<List<Brand>> getAllBrands() {
-    return ResponseEntity.ok(brandRepository.findAll());
-  }
+	ResponseEntity<List<Brand>> getAllBrands() {
+		return ResponseEntity.ok(brandRepository.findAll());
+	}
 }

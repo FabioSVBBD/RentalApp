@@ -14,158 +14,148 @@ import java.util.Optional;
 @RequestMapping("rental-app/api/rentals")
 public class RentalController {
 
-    @Autowired
-    private RentalRepository rentalRepository;
+	@Autowired
+	private RentalRepository rentalRepository;
 
-    private RentalController(RentalRepository rentalRepository)
-    {
-        this.rentalRepository = rentalRepository;
-    }
+	private RentalController(RentalRepository rentalRepository) {
+		this.rentalRepository = rentalRepository;
+	}
 
-    @GetMapping("")
-    public ResponseEntity<Iterable<Rental>> getAllRentals(
-            @RequestParam(required = false) Client client,
-            @RequestParam(required = false) Employee employee,
-            @RequestParam(required = false) Vehicle vehicle
-    ) {
-        if (client != null) return ResponseEntity.ok(rentalRepository.findByClient(client));
-        if (employee != null) return ResponseEntity.ok(rentalRepository.findByEmployee(employee));
-        if (vehicle != null) return ResponseEntity.ok(rentalRepository.findByVehicle(vehicle));
-        
-        return ResponseEntity.ok(rentalRepository.findAll());
-    }
+	@GetMapping("")
+	public ResponseEntity<Iterable<Rental>> getAllRentals(
+			@RequestParam(required = false) Client client,
+			@RequestParam(required = false) Employee employee,
+			@RequestParam(required = false) Vehicle vehicle) {
+		if (client != null)
+			return ResponseEntity.ok(rentalRepository.findByClient(client));
+		if (employee != null)
+			return ResponseEntity.ok(rentalRepository.findByEmployee(employee));
+		if (vehicle != null)
+			return ResponseEntity.ok(rentalRepository.findByVehicle(vehicle));
 
-    @GetMapping("{id}")
-    public ResponseEntity<Rental> getRental(@PathVariable Integer id)
-    {
-        Optional<Rental> optionalRental = rentalRepository.findById(id);
+		return ResponseEntity.ok(rentalRepository.findAll());
+	}
 
-        if(optionalRental.isPresent())
-        {
-            return ResponseEntity.ok(optionalRental.get());
-        }
-        else return ResponseEntity.noContent().build();
-    }
+	@GetMapping("{id}")
+	public ResponseEntity<Rental> getRental(@PathVariable Integer id) {
+		Optional<Rental> optionalRental = rentalRepository.findById(id);
 
-    @PostMapping("")
-    public ResponseEntity<String> newRental(@RequestBody Rental rental)
-    {
-        if (rental == null) return ResponseEntity.badRequest().build();
-        rentalRepository.save(rental);
-        return ResponseEntity.ok(String.format("Rental %s saved successfully", rental));
-    }
+		if (optionalRental.isPresent()) {
+			return ResponseEntity.ok(optionalRental.get());
+		} else
+			return ResponseEntity.noContent().build();
+	}
 
-    @PatchMapping("{id}")
-    public ResponseEntity<String> patchRental(@PathVariable Integer id, @RequestBody Rental updateData) {
+	@PostMapping("")
+	public ResponseEntity<String> newRental(@RequestBody Rental rental) {
+		if (rental == null)
+			return ResponseEntity.badRequest().build();
+		rentalRepository.save(rental);
+		return ResponseEntity.ok(String.format("Rental %s saved successfully", rental));
+	}
 
-        StringBuilder response = new StringBuilder();
+	@PatchMapping("{id}")
+	public ResponseEntity<String> patchRental(@PathVariable Integer id, @RequestBody Rental updateData) {
 
-        if (!rentalRepository.findById(id).isPresent())
-            return ResponseEntity.badRequest().build();
-        Rental rental = rentalRepository.findById(id).get();
+		StringBuilder response = new StringBuilder();
 
-        if (updateData.getVehicle() != null) {
-            rental.setVehicle(updateData.getVehicle());
-            response.append(String.format("Rental vehicle updated: %s\n", updateData.getVehicle()));
-        }
+		if (!rentalRepository.findById(id).isPresent())
+			return ResponseEntity.badRequest().build();
+		Rental rental = rentalRepository.findById(id).get();
 
-        if (updateData.getClient() != null) {
-            rental.setClient(updateData.getClient());
-            response.append(String.format("Rental client updated: %s\n", updateData.getClient()));
-        }
+		if (updateData.getVehicle() != null) {
+			rental.setVehicle(updateData.getVehicle());
+			response.append(String.format("Rental vehicle updated: %s\n", updateData.getVehicle()));
+		}
 
-        if (updateData.getEmployee() != null) {
-            rental.setEmployee(updateData.getEmployee());
-            response.append(String.format("Rental employee updated: %s\n", updateData.getEmployee()));
-        }
+		if (updateData.getClient() != null) {
+			rental.setClient(updateData.getClient());
+			response.append(String.format("Rental client updated: %s\n", updateData.getClient()));
+		}
 
-        if (updateData.getAddress() != null) {
-            rental.setAddress(updateData.getAddress());
-            response.append(String.format("Rental address updated: %s\n", updateData.getAddress()));
-        }
+		if (updateData.getEmployee() != null) {
+			rental.setEmployee(updateData.getEmployee());
+			response.append(String.format("Rental employee updated: %s\n", updateData.getEmployee()));
+		}
 
-        if (updateData.getBalance() != null) {
-            rental.setBalance(updateData.getBalance());
-            response.append(String.format("Rental balance updated: %s\n", updateData.getBalance()));
-        }
+		if (updateData.getAddress() != null) {
+			rental.setAddress(updateData.getAddress());
+			response.append(String.format("Rental address updated: %s\n", updateData.getAddress()));
+		}
 
-        if (updateData.getPaymentMethod() != null) {
-            rental.setPaymentMethod(updateData.getPaymentMethod());
-            response.append(String.format("Rental payment method updated: %s\n", updateData.getPaymentMethod()));
-        }
+		if (updateData.getBalance() != null) {
+			rental.setBalance(updateData.getBalance());
+			response.append(String.format("Rental balance updated: %s\n", updateData.getBalance()));
+		}
 
-        if (updateData.getStartDate() != null) {
-            rental.setStartDate(updateData.getStartDate());
-            response.append(String.format("Rental start date updated: %s\n", updateData.getStartDate()));
-        }
+		if (updateData.getPaymentMethod() != null) {
+			rental.setPaymentMethod(updateData.getPaymentMethod());
+			response.append(String.format("Rental payment method updated: %s\n", updateData.getPaymentMethod()));
+		}
 
-        if (updateData.getEndDate() != null) {
-            rental.setEndDate(updateData.getEndDate());
-            response.append(String.format("Rental end date updated: %s\n", updateData.getEndDate()));
-        }
+		if (updateData.getStartDate() != null) {
+			rental.setStartDate(updateData.getStartDate());
+			response.append(String.format("Rental start date updated: %s\n", updateData.getStartDate()));
+		}
 
-        if (updateData.getStatus() != null) {
-            rental.setStatus(updateData.getStatus());
-            response.append(String.format("Rental status updated: %s\n", updateData.getStatus()));
-        }
+		if (updateData.getEndDate() != null) {
+			rental.setEndDate(updateData.getEndDate());
+			response.append(String.format("Rental end date updated: %s\n", updateData.getEndDate()));
+		}
 
-        if (updateData.getReview() != null) {
-            rental.setReview(updateData.getReview());
-            response.append(String.format("Rental review updated: %s\n", updateData.getReview()));
-        }
+		if (updateData.getStatus() != null) {
+			rental.setStatus(updateData.getStatus());
+			response.append(String.format("Rental status updated: %s\n", updateData.getStatus()));
+		}
 
-        rentalRepository.save(rental);
+		if (updateData.getReview() != null) {
+			rental.setReview(updateData.getReview());
+			response.append(String.format("Rental review updated: %s\n", updateData.getReview()));
+		}
 
-        return ResponseEntity.ok(response.toString());
-    }
+		rentalRepository.save(rental);
 
-    @GetMapping("{id}/total-cost")
-    public ResponseEntity<BigDecimal> getTotalCost(@PathVariable Integer id)
-    {
-        if(rentalRepository.findById(id).isPresent())
-        {
-            return  ResponseEntity.ok(rentalRepository.findById(id).get().getTotalCost());
-        }
-        else
-            return ResponseEntity.noContent().build();
-    }
+		return ResponseEntity.ok(response.toString());
+	}
 
-    @GetMapping("{id}/rental-cost")
-    public ResponseEntity<BigDecimal> getRentalCost(@PathVariable Integer id)
-    {
-        if(rentalRepository.findById(id).isPresent())
-        {
-            return  ResponseEntity.ok(rentalRepository.findById(id).get().getRentalCost());
-        }
-        else
-            return ResponseEntity.noContent().build();
-    }
+	@GetMapping("{id}/total-cost")
+	public ResponseEntity<BigDecimal> getTotalCost(@PathVariable Integer id) {
+		if (rentalRepository.findById(id).isPresent()) {
+			return ResponseEntity.ok(rentalRepository.findById(id).get().getTotalCost());
+		} else
+			return ResponseEntity.noContent().build();
+	}
 
-    @PutMapping("{id}/pay")
-    public void makePayment(@PathVariable Integer id, @RequestParam BigDecimal payment)
-    {
-        if(rentalRepository.findById(id).isPresent())
-        {
-            rentalRepository.findById(id).get().makePayment(payment);
-        }
-        else
-            return;ResponseEntity.noContent().build();
-    }
+	@GetMapping("{id}/rental-cost")
+	public ResponseEntity<BigDecimal> getRentalCost(@PathVariable Integer id) {
+		if (rentalRepository.findById(id).isPresent()) {
+			return ResponseEntity.ok(rentalRepository.findById(id).get().getRentalCost());
+		} else
+			return ResponseEntity.noContent().build();
+	}
 
-    @PostMapping("{id}/review")
-    public ResponseEntity<String> addRentalReview(@PathVariable Integer id, @RequestBody Review review) {
+	@PutMapping("{id}/pay")
+	public void makePayment(@PathVariable Integer id, @RequestParam BigDecimal payment) {
+		if (rentalRepository.findById(id).isPresent()) {
+			rentalRepository.findById(id).get().makePayment(payment);
+		} else
+			return;
+		ResponseEntity.noContent().build();
+	}
 
-        if (review == null)
-            return ResponseEntity.badRequest().build();
+	@PostMapping("{id}/review")
+	public ResponseEntity<String> addRentalReview(@PathVariable Integer id, @RequestBody Review review) {
 
-        if (!rentalRepository.findById(id).isPresent())
-            return ResponseEntity.badRequest().build();
+		if (review == null)
+			return ResponseEntity.badRequest().build();
 
-        Rental rental = rentalRepository.findById(id).get();
-        rental.setReview(review);
-        rentalRepository.save(rental);
+		if (!rentalRepository.findById(id).isPresent())
+			return ResponseEntity.badRequest().build();
 
-        return ResponseEntity.ok(String.format("Review: %s for rental: %s saved successfully", review, rental));
-    }
+		Rental rental = rentalRepository.findById(id).get();
+		rental.setReview(review);
+		rentalRepository.save(rental);
 
+		return ResponseEntity.ok(String.format("Review: %s for rental: %s saved successfully", review, rental));
+	}
 }

@@ -11,27 +11,24 @@ import java.util.Optional;
 @RequestMapping("rental-app/api/payment-methods")
 public class PaymentMethodController {
 
-    private final PaymentMethodRepository paymentMethodRepository;
+	private final PaymentMethodRepository paymentMethodRepository;
 
-    public PaymentMethodController(PaymentMethodRepository paymentMethodRepository) {
-        this.paymentMethodRepository = paymentMethodRepository;
-    }
+	public PaymentMethodController(PaymentMethodRepository paymentMethodRepository) {
+		this.paymentMethodRepository = paymentMethodRepository;
+	}
 
-    @GetMapping("")
-    public ResponseEntity<Iterable<PaymentMethod>> getPaymentMethods()
-    {
-        return ResponseEntity.ok(paymentMethodRepository.findAll());
-    }
+	@GetMapping("")
+	public ResponseEntity<Iterable<PaymentMethod>> getPaymentMethods() {
+		return ResponseEntity.ok(paymentMethodRepository.findAll());
+	}
 
-    @GetMapping("{id}")
-    public ResponseEntity<PaymentMethod> getPaymentMethod(@PathVariable Integer id)
-    {
-        Optional<PaymentMethod> optionalPaymentMethod = paymentMethodRepository.findById(id);
+	@GetMapping("{id}")
+	public ResponseEntity<PaymentMethod> getPaymentMethod(@PathVariable Integer id) {
+		Optional<PaymentMethod> optionalPaymentMethod = paymentMethodRepository.findById(id);
 
-        if(optionalPaymentMethod.isPresent())
-        {
-            return ResponseEntity.ok(optionalPaymentMethod.get());
-        }
-        else return ResponseEntity.noContent().build();
-    }
+		if (optionalPaymentMethod.isPresent()) {
+			return ResponseEntity.ok(optionalPaymentMethod.get());
+		} else
+			return ResponseEntity.noContent().build();
+	}
 }
