@@ -1,6 +1,5 @@
 package com.rental.rentalApp;
 
-
 import com.rental.rentalApp.entities.*;
 import com.rental.rentalApp.repositories.*;
 import com.rental.rentalApp.services.*;
