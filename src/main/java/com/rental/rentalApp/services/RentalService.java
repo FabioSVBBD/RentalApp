@@ -76,7 +76,7 @@ public class RentalService {
         //BigDecimal totalCost = deposit + rentalCost
     }
 
-    public BigDecimal calculateRentalCost(Integer id)
+    public BigDecimal getRentalCost(Integer id)
     {
         Rental rental = rentalRepository.findByRentalID(id);
         Vehicle vehicle = rental.getVehicle();
@@ -89,6 +89,7 @@ public class RentalService {
 
         if(totalRentalTime.toHours() < 24)
         {
+             System.out.println(totalRentalTime.toHours());
              rentalCost = hourlyRate.multiply(BigDecimal.valueOf(totalRentalTime.toHours()));
         }
         else
@@ -99,8 +100,10 @@ public class RentalService {
         return rentalCost;
     }
 
-    public void makePayment(Integer id, Rental rental, BigDecimal payment)
+    public void makePayment(Integer id, BigDecimal payment)
     {
+        Rental rental = rentalRepository.findByRentalID(id);
+
         BigDecimal balance = rental.getBalance();
         BigDecimal newBalance = balance.subtract(payment);
 
