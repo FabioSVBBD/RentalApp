@@ -17,7 +17,7 @@ public class PaymentMethodController {
         this.paymentMethodRepository = paymentMethodRepository;
     }
 
-    @GetMapping("get-payment-methods")
+    @GetMapping("")
     public ResponseEntity<Iterable<PaymentMethod>> getPaymentMethods()
     {
         return ResponseEntity.ok(paymentMethodRepository.findAll());
