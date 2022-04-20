@@ -66,9 +66,7 @@ public class RentalController {
 
         if (!rentalService.getRental(id).isPresent())
             return ResponseEntity.badRequest().build();
-        System.out.println("Passed in: " + id);
         Rental rental = rentalService.getRental(id).get();
-        System.out.println("From rental object: " + rental);
 
         if (updateData.getVehicle() != null) {
             rental.setVehicle(updateData.getVehicle());

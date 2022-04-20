@@ -18,27 +18,27 @@ public class Rental {
 	 @Column(name = "Address")
 	  private String address;
 
-	 @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	 @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
 	 @JoinColumn(name = "ClientID", nullable = false)
 	  private Client client;
 
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name = "EmployeeID", nullable = false)
 	private Employee employee;
 	 
-	 @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	 @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
 	 @JoinColumn(name = "VehicleID", nullable = false)
 	  private Vehicle vehicle;
 	 
-	 @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	 @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
 	 @JoinColumn(name = "PaymentMethodID", nullable = false)
 	  private PaymentMethod paymentMethod;
 	 
-	 @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	 @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
 	 @JoinColumn(name = "StatusID", nullable = false)
 	  private Status status;
 	 
-	 @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	 @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
 	 @JoinColumn(name = "ReviewID", nullable = true)
 	  private Review review;
 	 
@@ -69,8 +69,9 @@ public class Rental {
 	    public String toString() {
 		 	return "Rental [ ID = " + rentalID + ", Address = " + address  + ", Client = " +  client  + ", Vehicle = " +  vehicle  + ", PaymentMethod = " +  paymentMethod + ", Status = " +  status  + ", Review = " +  review  + ", StartDate = " +  startDate  + ", EndDate = " +  endDate  + ", Balance = " +  balance + " ]";
 	    }
-	 
-	 public String getAddress() { return this.address; }
+
+	public int getRentalID() {return this.rentalID;}
+	public String getAddress() { return this.address; }
 	 public Client getClient() { return this.client; }
 	 public Employee getEmployee() { return employee; }
 	 public Vehicle getVehicle() { return this.vehicle; }

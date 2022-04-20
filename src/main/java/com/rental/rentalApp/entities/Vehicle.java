@@ -14,19 +14,19 @@ public class Vehicle {
     @Column(name = "VIN")
     private String VIN;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "BrandID", nullable = false)
     private Brand brand;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "ModelID", nullable = false)
     private Model model;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "VehicleTypeID", nullable = false)
     private VehicleType vehicleType;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "ColorID", nullable = false)
     private Color color;
 
@@ -98,6 +98,10 @@ public class Vehicle {
                         " mileage: %s, depositAmount: %s, available: %s ]]",
                 this.vehicleID, this.VIN, this.brand, this.model, this.vehicleType, this.color, this.numSeats, this.dailyRate,
                 this.hourlyRate, this.yearPurchased, this.lastService, this.transmission, this.mileage, this.depositAmount, this.available);
+    }
+
+    public int getVehicleID() {
+        return vehicleID;
     }
 
     public String getVIN() { return VIN; }

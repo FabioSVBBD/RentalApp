@@ -14,7 +14,7 @@ public class Client extends Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected int clientID;
+    private int clientID;
 
     @Column(name = "Email")
     private String email;

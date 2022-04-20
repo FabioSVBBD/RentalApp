@@ -10,7 +10,7 @@ public class Employee extends Person{
     
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	protected Integer employeeID; 
+	private Integer employeeID;
     
     @Column(name = "dateOfEmployment")
     private LocalDate dateOfEmployment;
@@ -20,6 +20,10 @@ public class Employee extends Person{
     Employee(String name, String surname, String number, LocalDate dateOfEmployment){
     	super(name, surname, number);
         this.dateOfEmployment = dateOfEmployment;
+    }
+
+    public Integer getEmployeeID() {
+        return employeeID;
     }
 
     @Override
