@@ -2,16 +2,14 @@ package com.rental.rentalApp.entities;
 
 import javax.persistence.*;
 
-import org.springframework.boot.autoconfigure.amqp.RabbitProperties.Retry;
-
 @Entity
 public class Model {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int modelID;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "BrandID", nullable = false)
     private Brand brand;
 
