@@ -1,8 +1,11 @@
 package com.rental.rentalApp.entities;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
+@Data
 public class Model {
 
     @Id
@@ -19,33 +22,9 @@ public class Model {
     @Column(name = "Year")
     private Integer year;
 
-    protected Model() { }
+    @Override
+    public String toString() {
+      return String.format("Model => ID: "+ modelID +" ModelName: " + modelName + " Year: " + year);
+    }
 
-    public Model(Brand brand, String modelName, Integer year) {
-      this.setBrand(brand);
-      this.setModelName(modelName);
-      this.setYear(year);
-  }
-
-  @Override
-  public String toString() {
-      return String.format("Model => ID: "+ modelID +" Brand Details => "+ this.brand +" ModelName: " + modelName + " Year: " + year);
-  }
-
-  public Brand getBrand() { return this.brand; }
-  public String getModelName() { return this.modelName; }
-
-  public Integer getYear() { return this.year; }
-
-  public void setBrand(Brand brand) {
-    this.brand = brand;
-  }
-
-  public void setModelName(String modelName) {
-      this.modelName = modelName;
-  }
-
-  public void setYear(Integer year) {
-    this.year = year;
-}
 }

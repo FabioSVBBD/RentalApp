@@ -1,109 +1,104 @@
 package com.rental.rentalApp.entities;
+import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
+import java.math.BigDecimal;
+import java.time.Duration;
 import java.util.Date;
 
 import javax.persistence.*;
 
 @Entity
+@DynamicUpdate
+@DynamicInsert
+@Data
 public class Rental {
 	 @Id
-	 @GeneratedValue(strategy = GenerationType.AUTO)
-	 private int RentalID;
+	 @GeneratedValue(strategy = GenerationType.IDENTITY)
+	 private int rentalID;
 	 
 	 @Column(name = "Address")
-	  private String address;
-	 
-	 @ManyToOne
+	 private String address;
+
+	 @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
 	 @JoinColumn(name = "ClientID", nullable = false)
-	  private Client client;
-	 
-	 @ManyToOne
+	 private Client client;
+
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+	@JoinColumn(name = "EmployeeID", nullable = false)
+	private Employee employee;
+
+	 @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
 	 @JoinColumn(name = "VehicleID", nullable = false)
-	  private Vehicle vehicle;
+	 private Vehicle vehicle;
 	 
-	 @ManyToOne
+	 @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
 	 @JoinColumn(name = "PaymentMethodID", nullable = false)
-	  private PaymentMethod paymentMethod;
+	 private PaymentMethod paymentMethod;
 	 
-	 @ManyToOne
+	 @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
 	 @JoinColumn(name = "StatusID", nullable = false)
-	  private Status status;
+	 private Status status;
 	 
-	 @ManyToOne
-	 @JoinColumn(name = "ReviewID", nullable = false)
-	  private Review review;
+	 @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+	 @JoinColumn(name = "ReviewID", nullable = true)
+	 private Review review;
 	 
 	 @Column(name = "StartDate")
-	  private Date startDate;
-	 
-	 
+	 private Date startDate;
+
 	 @Column(name = "EndDate")
-	  private Date endDate;
+	 private Date endDate;
 	 
 	 @Column(name = "Balance")
-	  private Double balance;
-	 
-	 
-	 public Rental() {}
-	 
-	 public Rental(String address, Client client, Vehicle vehicle, PaymentMethod paymentMethod, Status status, Review review, Date startDate, Date endDate, double balance) {
-	        this.setAddress(address);
-	        this.setClient(client);
-	        this.setVehicle(vehicle);
-	        this.setAPaymentMethod(paymentMethod);
-	        this.setStatus(status);
-	        this.setStartDate(startDate);
-	        this.setEndDate(endDate);
-	        this.setBalance(balance);
-	 }
-	 
-	 @Override
+	 private BigDecimal balance;
+
+	@Override
 	    public String toString() {
-		 	return "Rental [ ID = " + RentalID + ", Address = " + address  + ", Client = " +  client  + ", Vehicle = " +  vehicle  + ", PaymentMethod = " +  paymentMethod + ", Status = " +  status  + ", Review = " +  review  + ", StartDate = " +  startDate  + ", EndDate = " +  endDate  + ", Balance = " +  balance + " ]";
+		 	return "Rental [ ID = " + rentalID + ", Address = " + address  + ", Client = " +  client  + ", Vehicle = " +  vehicle  + ", PaymentMethod = " +  paymentMethod + ", Status = " +  status  + ", Review = " +  review  + ", StartDate = " +  startDate  + ", EndDate = " +  endDate  + ", Balance = " +  balance + " ]";
 	    }
-	 
-	 public String getAddress() { return this.address; }
-	 public Client getClient() { return this.client; }
-	 public Vehicle getVehicle() { return this.vehicle; }
-	 public PaymentMethod getPaymentMethod() { return this.paymentMethod; }
-	 public Status getStatus() { return this.status; }
-	 public Review getReview() { return this.review; }
-	 public Date getStartDate() { return this.startDate; }
-	 public Date getEndDate() { return this.endDate; }
-	 public Double getBalance() { return this.balance; }
-	 
-	 public void setAddress(String address) {
-	        this.address = address;
-	 }
-	 
-	 public void setClient(Client client) {
-	        this.client= client;
-	 }
-	 
-	 public void setVehicle(Vehicle vehicle) {
-	        this.vehicle = vehicle;
-	 }
-	 
-	 public void setAPaymentMethod(PaymentMethod paymentMethod) {
-	        this.paymentMethod = paymentMethod ;
-	 }
-	 
-	 public void setStatus(Status status) {
-	        this.status = status; 
-	 }
-	 
-	 public void setReview(Review review) {
-	        this.review = review ;
-	 }
-	 
-	 public void setStartDate(Date startDate) {
-	        this.startDate = startDate ; 
-	 }
-	 
-	 public void setEndDate(Date endDate) {
-	        this.endDate = endDate;
-	 }
-	 
-	 public void setBalance(Double balance) {
-	        this.balance = balance ; 
-	 }
+
+	public BigDecimal getTotalCost() {
+		Vehicle vehicle = getVehicle();
+		BigDecimal deposit = vehicle.getDepositAmount();
+		BigDecimal balance = getBalance();
+		BigDecimal totalCost = deposit.add(balance);
+		return totalCost;
+	}
+
+	public BigDecimal getRentalCost()
+	{
+		Vehicle vehicle = getVehicle();
+
+		BigDecimal rentalCost;
+		BigDecimal dailyRate = vehicle.getDailyRate();
+		BigDecimal hourlyRate = vehicle.getHourlyRate();
+
+		Duration totalRentalTime = getDuration();
+
+		if(totalRentalTime.toHours() < 24)
+		{
+			System.out.println(totalRentalTime.toHours());
+			rentalCost = hourlyRate.multiply(BigDecimal.valueOf(totalRentalTime.toHours()));
+		}
+		else
+		{
+			rentalCost = dailyRate.multiply(BigDecimal.valueOf(totalRentalTime.toDays()));
+		}
+
+		return rentalCost;
+	}
+
+	public void makePayment(BigDecimal payment)
+	{
+		BigDecimal balance = getBalance();
+		BigDecimal newBalance = balance.subtract(payment);
+		setBalance(newBalance);
+	}
+
+	public Duration getDuration() {
+		return Duration.between(getStartDate().toInstant(), getEndDate().toInstant());
+	}
+
 }

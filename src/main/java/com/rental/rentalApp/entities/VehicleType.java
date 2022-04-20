@@ -1,23 +1,19 @@
 package com.rental.rentalApp.entities;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
+@Data
 public class VehicleType {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int VehicleTypeID;
 
     @Column(name = "Type")
     private String type;
-
-    protected VehicleType() { }
-
-    public VehicleType(String type)
-    {
-        this.setType(type);
-    }
 
     @Override
     public String toString()
@@ -25,13 +21,4 @@ public class VehicleType {
         return "Vehicle Type [ ID = " + VehicleTypeID + ", Type = " + type + "]";
     }
 
-    public String getType(String type)
-    {
-        return this.type;
-    }
-
-    public void setType(String type)
-    {
-        this.type = type;
-    }
 }

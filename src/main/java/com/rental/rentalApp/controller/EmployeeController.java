@@ -16,9 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
-
 @RestController
-@RequestMapping("/rental-app/api/employees")
+@RequestMapping("rental-app/api/employees")
 public class EmployeeController {
 
 	@Autowired
@@ -117,8 +116,5 @@ public class EmployeeController {
 
     return ResponseEntity.ok(response.toString());
 	}
-
-
-
 
 }
