@@ -24,7 +24,7 @@ public class ModelController {
 
   // Get all Models
 	@GetMapping("")
-  ResponseEntity<List<Model>> getModels(@RequestParam(required = false) String brand) {
+  ResponseEntity<List<Model>> getModels(@RequestParam(required = false) String brand, @RequestParam(required = false) Integer brandId) {
 
     if (brand != null) {
       Brand brandObj = brandRepository.findByBrandName(brand);
@@ -33,6 +33,15 @@ public class ModelController {
         List<Model> brandList = modelRepository.findByBrand(brandObj);
         return ResponseEntity.ok(brandList);
       }
+      return ResponseEntity.badRequest().build();
+    }
+    else if(brandId != null){
+      Brand brandObj = brandRepository.findById(brandId).get();
+
+      if(brandObj != null){
+        return ResponseEntity.ok(modelRepository.findByBrand(brandObj));
+      }
+      return ResponseEntity.badRequest().build();
     }
     return ResponseEntity.ok(modelRepository.findAll());
   }
