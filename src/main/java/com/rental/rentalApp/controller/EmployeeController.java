@@ -81,11 +81,11 @@ public class EmployeeController {
 		 
 		 if (startDate == null  || employee == null  || employeeRepository.findByNumber(employee.getNumber()) != null ) {
 				return ResponseEntity.badRequest().build();
-		 }else {
-			 employee.setDateOfEmployment(startDate); 
-			 employeeRepository.save(employee);
-		 } 
-		 
+		 }
+
+		 employee.setDateOfEmployment(startDate); 
+		 employeeRepository.save(employee);
+
 		 return ResponseEntity.ok(String.format("%s %s saved successfully", employee.getName(), employee.getSurname(), employee.getNumber() ));
 		 
 	 }
@@ -118,14 +118,10 @@ public class EmployeeController {
 				employee.setNumber(updateEmployee.getNumber());
 				response.append(String.format("Number Updated: %s\n", updateEmployee.getNumber()));
 			}
-		 
-		 
-		return ResponseEntity.ok(response.toString());
-		 
-		 
-	 }
-	
-	
-	
 
+			employeeRepository.save(employee);
+		 
+		 
+		return ResponseEntity.ok(response.toString()); 
+	 }
 }

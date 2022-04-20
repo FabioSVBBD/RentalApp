@@ -58,6 +58,8 @@ public class VehicleController {
 		vehicle.setAvailable(newData.isAvailable());
 		response.append(String.format("Availablity for vehicle updated: "+newData.isAvailable() +"\n"));
 
+		vehicleRepository.save(vehicle);
+
 		return ResponseEntity.ok(response.toString());
 	}
 
@@ -69,6 +71,8 @@ public class VehicleController {
 		if (token.isPresent() && token.get().equals(securityKey)) {
 			Vehicle vehicle = vehicleRepository.findById(id).get();
 			vehicleRepository.deleteById(id);
+
+			vehicleRepository.save(vehicle);
 
 			return ResponseEntity.ok(String.format("Deleted "+vehicle.getVIN()));
 		}
@@ -93,9 +97,9 @@ public class VehicleController {
 		
 		if (newVehicle == null || vehicleRepository.findByVIN(newVehicle.getVIN()) != null) {
 			return ResponseEntity.badRequest().build();
-		}else{
-			vehicleRepository.save(newVehicle);
 		}
+
+		vehicleRepository.save(newVehicle);
 		
 		return ResponseEntity.ok(String.format("Vehicle %s added", newVehicle.getVIN()));
 	}
