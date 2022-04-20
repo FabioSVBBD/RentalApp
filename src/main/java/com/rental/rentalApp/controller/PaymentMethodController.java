@@ -23,7 +23,7 @@ public class PaymentMethodController {
         return ResponseEntity.ok(paymentMethodRepository.findAll());
     }
 
-    @GetMapping("{id}/get-payment-by-id")
+    @GetMapping("{id}")
     public ResponseEntity<PaymentMethod> getPaymentMethod(@PathVariable Integer id)
     {
         Optional<PaymentMethod> optionalPaymentMethod = paymentMethodRepository.findById(id);
