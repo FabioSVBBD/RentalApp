@@ -3,6 +3,7 @@ package com.rental.rentalApp.controller;
 import java.util.*;
 
 import com.rental.rentalApp.entities.Model;
+import com.rental.rentalApp.entities.Brand;
 import com.rental.rentalApp.repositories.ModelRepository;
 
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("rental-app/api/models")
 public class ModelController {
 
-    private final ModelRepository modelRepository;
+  private final ModelRepository modelRepository;
 
 	private ModelController(ModelRepository repository) {
 		this.modelRepository = repository;
@@ -32,8 +33,8 @@ public class ModelController {
 
   // Get models given Brand name
   @GetMapping("")
-  ResponseEntity<List<Model>> getModelsInBrand(String brandName) {
-    return ResponseEntity.ok(modelRepository.findByBrandName(brandName));
+  ResponseEntity<List<Model>> getModelsInBrand(Integer brandID) {
+    return ResponseEntity.ok(modelRepository.findByBrandID(brandID));
   }
 
 }
