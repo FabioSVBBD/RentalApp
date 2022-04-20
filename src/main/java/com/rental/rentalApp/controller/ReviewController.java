@@ -29,7 +29,7 @@ public class ReviewController {
         return ResponseEntity.ok(reviews.stream().limit(limit == -1 ? reviews.size() : limit).toList());
     }
 
-    @GetMapping("view-top-reviews")
+    @GetMapping("top")
     public ResponseEntity<Iterable<Review>> getTopReviews(
             @RequestParam(required = false) Integer limit) {
         List<Review> reviews = reviewRepository.findAll();
