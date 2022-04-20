@@ -1,10 +1,15 @@
 package com.rental.rentalApp.entities;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.*;
 
 @Entity
+@DynamicUpdate
+@DynamicInsert
 public class Rental {
 	 @Id
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,23 +18,23 @@ public class Rental {
 	 @Column(name = "Address")
 	  private String address;
 
-	 @ManyToOne
+	 @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	 @JoinColumn(name = "ClientID", nullable = false)
 	  private Client client;
 
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	@JoinColumn(name = "EmployeeID", nullable = false)
 	private Employee employee;
 	 
-	 @ManyToOne
+	 @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	 @JoinColumn(name = "VehicleID", nullable = false)
 	  private Vehicle vehicle;
 	 
-	 @ManyToOne
+	 @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	 @JoinColumn(name = "PaymentMethodID", nullable = false)
 	  private PaymentMethod paymentMethod;
 	 
-	 @ManyToOne
+	 @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	 @JoinColumn(name = "StatusID", nullable = false)
 	  private Status status;
 	 

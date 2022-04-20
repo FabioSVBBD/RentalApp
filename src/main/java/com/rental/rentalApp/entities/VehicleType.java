@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class VehicleType {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int VehicleTypeID;
 
     @Column(name = "Type")

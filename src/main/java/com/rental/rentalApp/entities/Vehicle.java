@@ -2,32 +2,31 @@ package com.rental.rentalApp.entities;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.Year;
 import java.util.Date;
 
 @Entity
 public class Vehicle {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int vehicleID;
 
     @Column(name = "VIN")
     private String VIN;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "BrandID", nullable = false)
     private Brand brand;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "ModelID", nullable = false)
     private Model model;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "VehicleTypeID", nullable = false)
     private VehicleType vehicleType;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "ColorID", nullable = false)
     private Color color;
 

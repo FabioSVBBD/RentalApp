@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class PaymentMethod {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int PaymentMethodID;
 
     @Column(name = "MethodName")
@@ -25,7 +25,7 @@ public class PaymentMethod {
         return "Payment Method [ ID = " + PaymentMethodID + ", Method = " + methodName + "]";
     }
 
-    public String getMethod(String methodName)
+    public String getMethod()
     {
         return this.methodName;
     }

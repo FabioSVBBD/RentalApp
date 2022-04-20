@@ -66,7 +66,9 @@ public class RentalController {
 
         if (!rentalService.getRental(id).isPresent())
             return ResponseEntity.badRequest().build();
+        System.out.println("Passed in: " + id);
         Rental rental = rentalService.getRental(id).get();
+        System.out.println("From rental object: " + rental);
 
         if (updateData.getVehicle() != null) {
             rental.setVehicle(updateData.getVehicle());
@@ -118,7 +120,7 @@ public class RentalController {
             response.append(String.format("Rental review updated: %s\n", updateData.getReview()));
         }
 
-//        rentalService.updateRental(rental);
+        rentalService.updateRental(rental);
 
         return ResponseEntity.ok(response.toString());
     }
