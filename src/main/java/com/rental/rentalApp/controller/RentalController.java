@@ -29,7 +29,7 @@ public class RentalController {
             @RequestParam(required = false) Vehicle vehicle
     ) {
         if (client != null) return ResponseEntity.ok(rentalRepository.findByClient(client));
-        else if (employee != null) return ResponseEntity.ok(rentalRepository.findByEmployee(employee));
+        if (employee != null) return ResponseEntity.ok(rentalRepository.findByEmployee(employee));
         else if (vehicle != null) return ResponseEntity.ok(rentalRepository.findByVehicle(vehicle));
         else return ResponseEntity.ok(rentalRepository.findAll());
     }
