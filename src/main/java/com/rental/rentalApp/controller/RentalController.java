@@ -104,7 +104,7 @@ public class RentalController {
         }
 
         if (updateData.getEndDate() != null) {
-            rental.setStartDate(updateData.getEndDate());
+            rental.setEndDate(updateData.getEndDate());
             response.append(String.format("Rental end date updated: %s\n", updateData.getEndDate()));
         }
 
@@ -134,7 +134,7 @@ public class RentalController {
             return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("rental-app/{id}/get-rental-cost")
+    @GetMapping("{id}/get-rental-cost")
     public ResponseEntity<BigDecimal> getRentalCost(@PathVariable Integer id)
     {
         if(rentalService.getRental(id).isPresent())

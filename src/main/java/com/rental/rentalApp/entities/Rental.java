@@ -53,9 +53,10 @@ public class Rental {
 	 @Column(name = "Balance")
 	 private BigDecimal balance;
 
-	 @Override
+	@Override
 	    public String toString() {
 		 	return "Rental [ ID = " + rentalID + ", Address = " + address  + ", Client = " +  client  + ", Vehicle = " +  vehicle  + ", PaymentMethod = " +  paymentMethod + ", Status = " +  status  + ", Review = " +  review  + ", StartDate = " +  startDate  + ", EndDate = " +  endDate  + ", Balance = " +  balance + " ]";
 	    }
+
 
 }
