@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("rental-app/api/colors")
 public class ColorController {
 
-    private final ColorRepository colorRepository;
+  private final ColorRepository colorRepository;
 
 	private ColorController(ColorRepository repository) {
 		this.colorRepository = repository;
 	}
 
-    // Get all colors
+  // Get all colors
 	@GetMapping("")
-    ResponseEntity<List<Color>> getAllColors() {
-		return ResponseEntity.ok(colorRepository.findAll());
-    }
+  ResponseEntity<List<Color>> getAllColors() {
+    return ResponseEntity.ok(colorRepository.findAll());
+  }
 }

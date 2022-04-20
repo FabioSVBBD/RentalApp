@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("rental-app/api/vehicle-types")
 public class VehicleTypeController {
 
-    private final VehicleTypeRepository vehicleTypeRepository;
+  private final VehicleTypeRepository vehicleTypeRepository;
 
 	private VehicleTypeController(VehicleTypeRepository repository) {
 		this.vehicleTypeRepository = repository;
@@ -20,8 +20,8 @@ public class VehicleTypeController {
 
     // Get all vehicle types
 	@GetMapping("")
-    ResponseEntity<List<VehicleType>> getAllVehicleTypes() {
-		return ResponseEntity.ok(vehicleTypeRepository.findAll());
-    }
-    
+  ResponseEntity<List<VehicleType>> getAllVehicleTypes() {
+   return ResponseEntity.ok(vehicleTypeRepository.findAll());
+  }
+
 }

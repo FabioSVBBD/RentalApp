@@ -18,9 +18,22 @@ public class ModelController {
 		this.modelRepository = repository;
 	}
 
-    // Get all brands
+  // Get all Models
 	@GetMapping("")
-    ResponseEntity<List<Model>> getAllModels() {
-		return ResponseEntity.ok(modelRepository.findAll());
-    }
+  ResponseEntity<List<Model>> getAllModels() {
+    return ResponseEntity.ok(modelRepository.findAll());
+  }
+
+  // Get models given Model name
+  @GetMapping("")
+  ResponseEntity<List<Model>> getModel(String modelName) {
+    return ResponseEntity.ok(modelRepository.findByModelName(modelName));
+  }
+
+  // Get models given Brand name
+  @GetMapping("")
+  ResponseEntity<List<Model>> getModelsInBrand(String brandName) {
+    return ResponseEntity.ok(modelRepository.findByBrandName(brandName));
+  }
+
 }

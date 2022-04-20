@@ -27,9 +27,9 @@ GO
 
 
 /*Color Table*/
-INSERT INTO [Color] 
-	([ColorName]) 
-VALUES 
+INSERT INTO [Color]
+	([ColorName])
+VALUES
 	('Green'),
 	('Indigo'),
 	('Violet'),
@@ -49,9 +49,9 @@ VALUES
 GO
 
 /*Brand Table*/
-INSERT INTO [Brand] 
+INSERT INTO [Brand]
 	([BrandName])
-VALUES 
+VALUES
 	('Toyota'),
 	('Nissan'),
 	('Volkswagen'),
@@ -66,7 +66,7 @@ VALUES
 GO
 
 /*Model Table*/
-INSERT INTO [Model] 
+INSERT INTO [Model]
 	([BrandID],
 	[ModelName],
 	[Year])
@@ -94,7 +94,7 @@ VALUES
 	(7, 'Ciaz', 2001),
 	(7, 'Ertiga', 2020),
 	(7, 'Jimny', 2013),
-	(8, '2 Series Gran Coup�', 2021),
+	(8, '2 Series Gran Coup', 2021),
 	(8, '1 Series', 2000),
 	(8, 'X5', 2016),
 	(9, 'Audi A1', 2020),
@@ -108,7 +108,7 @@ VALUES
 	(11, 'Sierra', 2022);
 GO
 
--- Review 
+-- Review
 INSERT INTO [Review] ([Date], [Message], [Rating])
 VALUES
     ('2021-07-14', 'Great service!', 5),
@@ -117,7 +117,7 @@ VALUES
 GO
 
 -- Client
-INSERT INTO [Client] ([Name], Surname, Email, Phone) 
+INSERT INTO [Client] ([Name], Surname, Email, Phone)
     VALUES ('Nanine', 'Venners', 'nvenners0@home.pl', '860-318-935'),
     ('Andre', 'De Souza', 'adesouza1@thetimes.co.uk', '569-660-4441'),
     ('Carl', 'Ralestone', 'cralestone2@goo.ne.jp', '989-304-5808'),
@@ -131,12 +131,12 @@ INSERT INTO [Client] ([Name], Surname, Email, Phone)
 GO
 
 -- Status
-INSERT INTO [Status] ([Status]) 
+INSERT INTO [Status] ([Status])
     VALUES ('Processing'),('Active'),('Cancelled'),('Complete');
 GO
 
 -- Employee
-INSERT INTO [Employee] ([Name], Surname, Phone, DateOfEmployment) 
+INSERT INTO [Employee] ([Name], Surname, Phone, DateOfEmployment)
     VALUES ('Jack', 'Dielhenn', '967-905-3400', '2021-05-13 00:18:31'),
     ('Roldan', 'Loveday', '642-116-9328', '2021-08-05 02:31:15'),
     ('Roana', 'Lanigan', '232-339-6432', '2021-08-14 11:06:04'),
@@ -151,8 +151,8 @@ GO
 
 -- Vehicle
 INSERT INTO [Vehicle]
-	([VIN], [BrandID], [ModelID], [VehicleTypeID], [ColorID], 
-	[NumSeats], [DayRate], [HourlyRate], [YearPurchased], [LastService], 
+	([VIN], [BrandID], [ModelID], [VehicleTypeID], [ColorID],
+	[NumSeats], [DayRate], [HourlyRate], [YearPurchased], [LastService],
 	[Transmission], [Mileage], [DepositAmount], [Available])
 VALUES
     ('WDBAB23A6DB369209', 5, 15, 1, 2, 4, 350.00, 50.00, 2018, '2021-01-03', 'A', 700, 4000.00, 1),
@@ -165,8 +165,8 @@ VALUES
 GO
 
 -- Rental
-INSERT INTO [Rental] 
-	([ClientID], [EmployeeID], [VehicleID], [PaymentMethodID], 
+INSERT INTO [Rental]
+	([ClientID], [EmployeeID], [VehicleID], [PaymentMethodID],
 	[StatusID], [ReviewID], [Address], [StartDate], [EndDate], [Balance])
 VALUES
     (3, 5, 1, 2, 2, 1, '1984 Thomas St, Pietermaritzburg, KwaZulu-Natal', '2021-01-01', '2021-01-03', 1050),
