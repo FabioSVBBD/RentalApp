@@ -18,10 +18,6 @@ public class Vehicle {
     private String VIN;
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
-    @JoinColumn(name = "BrandID", nullable = false)
-    private Brand brand;
-
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "ModelID", nullable = false)
     private Model model;
 
