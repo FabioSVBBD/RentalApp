@@ -5,6 +5,7 @@ import java.util.*;
 import com.rental.rentalApp.entities.Model;
 import com.rental.rentalApp.entities.Brand;
 import com.rental.rentalApp.repositories.ModelRepository;
+import com.rental.rentalApp.repositories.BrandRepository;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,27 +15,33 @@ import org.springframework.web.bind.annotation.*;
 public class ModelController {
 
   private final ModelRepository modelRepository;
+  private final BrandRepository brandRepository;
 
-	private ModelController(ModelRepository repository) {
-		this.modelRepository = repository;
+	private ModelController(ModelRepository _modelRepository, BrandRepository _brandRepository) {
+		this.modelRepository = _modelRepository;
+    this.brandRepository = _brandRepository ;
 	}
 
-  // Get all Models
-	@GetMapping("")
-  ResponseEntity<List<Model>> getAllModels() {
+  @GetMapping("")
+  public ResponseEntity<Iterable<Model>> getAllModels(  @RequestParam(required = false) String modelName, 
+                                                        @RequestParam(required = false) Integer brandId ) {
+
+    if(brandId != null){
+      Brand brand = this.brandRepository.findById(brandId).get() ;
+
+      if(brand != null){
+        return ResponseEntity.ok(modelRepository.findByBrand(brand));
+      }
+      
+      return ResponseEntity.badRequest().build();
+      
+    }
+
+    if(modelName != null){
+      return ResponseEntity.ok(modelRepository.findByModelName(modelName));
+    }
+
     return ResponseEntity.ok(modelRepository.findAll());
-  }
-
-  // Get models given Model name
-  @GetMapping("")
-  ResponseEntity<List<Model>> getModel(String modelName) {
-    return ResponseEntity.ok(modelRepository.findByModelName(modelName));
-  }
-
-  // Get models given Brand name
-  @GetMapping("")
-  ResponseEntity<List<Model>> getModelsInBrand(Integer brandID) {
-    return ResponseEntity.ok(modelRepository.findByBrandID(brandID));
   }
 
 }
