@@ -26,7 +26,8 @@ public class StatusController {
         } else return ResponseEntity.badRequest().build();
     }
 
-    @GetMapping("{status}/get-status")
+    @GetMapping("{status}")
+
     public Status getStatus(@PathVariable String status){
         return statusRepository.findByStatus(status);
     }
