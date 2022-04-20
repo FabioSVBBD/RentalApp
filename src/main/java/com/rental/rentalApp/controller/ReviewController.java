@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("rental-app/api/reviews")
@@ -23,34 +24,28 @@ public class ReviewController {
         this.reviewRepository = reviewRepository;
     }
 
-    @GetMapping("")
-    public ResponseEntity<Iterable<Review>> getReviews(@RequestParam(required = false) Integer limit) {
-        List<Review> reviews = reviewRepository.findAll();
-        return ResponseEntity.ok(reviews.stream().limit(limit == -1 ? reviews.size() : limit).toList());
-    }
-
-    @GetMapping("view-top-reviews")
+    @GetMapping("top")
     public ResponseEntity<Iterable<Review>> getTopReviews(
             @RequestParam(required = false) Integer limit) {
         List<Review> reviews = reviewRepository.findAll();
-        return ResponseEntity.ok(reviews.stream().sorted(Comparator.comparing(Review::getRating).reversed()).limit((limit == -1 ? reviews.size() : limit)).toList());
+        return Optional.of(reviews).<ResponseEntity<Iterable<Review>>>map(reviewList -> ResponseEntity.ok(reviewList.stream().sorted(Comparator.comparing(Review::getRating).reversed()).limit(limit == null ? reviews.size() : limit).toList())).orElseGet(() -> ResponseEntity.badRequest().build());
     }
 
-    @GetMapping("view-reviews-by-date")
-    public ResponseEntity<Iterable<Review>> getReviewsByDate(
+    @GetMapping("")
+    public ResponseEntity<Iterable<Review>> getReviews(
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDateTime,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDateTime) {
 
         List<Review> reviews = reviewRepository.findAll();
 
         if (startDateTime != null && endDateTime != null)
-            return ResponseEntity.ok(reviews.stream().filter(review -> review.getDate().isAfter(startDateTime) && review.getDate().isBefore(endDateTime)).toList());
+            return Optional.of(reviews).<ResponseEntity<Iterable<Review>>>map(reviewList -> ResponseEntity.ok(reviewList.stream().filter(review -> review.getDate().isAfter(startDateTime) && review.getDate().isBefore(endDateTime)).toList())).orElseGet(() -> ResponseEntity.badRequest().build());
         else if (startDateTime != null)
-            return ResponseEntity.ok(reviews.stream().filter(review -> review.getDate().isAfter(startDateTime)).toList());
+            return Optional.of(reviews).<ResponseEntity<Iterable<Review>>>map(reviewList -> ResponseEntity.ok(reviewList.stream().filter(review -> review.getDate().isAfter(startDateTime)).toList())).orElseGet(() -> ResponseEntity.badRequest().build());
         else if (endDateTime != null)
-            return ResponseEntity.ok(reviews.stream().filter(review -> review.getDate().isAfter(endDateTime)).toList());
+            return Optional.of(reviews).<ResponseEntity<Iterable<Review>>>map(reviewList -> ResponseEntity.ok(reviewList.stream().filter(review -> review.getDate().isBefore(endDateTime)).toList())).orElseGet(() -> ResponseEntity.badRequest().build());
         else
-            return ResponseEntity.ok(reviews);
+            return Optional.of(reviews).<ResponseEntity<Iterable<Review>>>map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.badRequest().build());
 
     }
 
