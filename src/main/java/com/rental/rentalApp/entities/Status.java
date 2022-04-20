@@ -19,5 +19,4 @@ public class Status {
         return String.format("Status [ id = %d, status = %s]",
                 StatusID,status);
     }
-
 }

@@ -1,7 +1,7 @@
 package com.rental.rentalApp.controller;
 
 import com.rental.rentalApp.entities.*;
-import com.rental.rentalApp.services.*;
+import com.rental.rentalApp.repositories.RentalRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,14 +14,12 @@ import java.util.Optional;
 @RequestMapping("rental-app/api/rentals")
 public class RentalController {
 
-    //private RentalRepository rentals;
-
     @Autowired
-    private RentalService rentalService;
-    private RentalController(RentalService rentalService)
+    private RentalRepository rentalRepository;
+
+    private RentalController(RentalRepository rentalRepository)
     {
-        //this.rentals = rentals;
-        this.rentalService = rentalService;
+        this.rentalRepository = rentalRepository;
     }
 
     @GetMapping("")
@@ -30,18 +28,16 @@ public class RentalController {
             @RequestParam(required = false) Employee employee,
             @RequestParam(required = false) Vehicle vehicle
     ) {
-        if (client != null) return ResponseEntity.ok(rentalService.getAllRentalsByClient(client));
-        else if (employee != null) return ResponseEntity.ok(rentalService.getAllRentalsByEmployee(employee));
-        else if (vehicle != null) return ResponseEntity.ok(rentalService.getAllRentalsByVehicle(vehicle));
-        else return ResponseEntity.ok(rentalService.getAllRentals());
+        if (client != null) return ResponseEntity.ok(rentalRepository.findByClient(client));
+        else if (employee != null) return ResponseEntity.ok(rentalRepository.findByEmployee(employee));
+        else if (vehicle != null) return ResponseEntity.ok(rentalRepository.findByVehicle(vehicle));
+        else return ResponseEntity.ok(rentalRepository.findAll());
     }
 
     @GetMapping("{id}")
     public ResponseEntity<Rental> getRental(@PathVariable Integer id)
     {
-        Optional<Rental> optionalRental = rentalService.getRental(id);
-
-        System.out.println(optionalRental);
+        Optional<Rental> optionalRental = rentalRepository.findById(id);
 
         if(optionalRental.isPresent())
         {
@@ -54,8 +50,7 @@ public class RentalController {
     public ResponseEntity<String> newRental(@RequestBody Rental rental)
     {
         if (rental == null) return ResponseEntity.badRequest().build();
-
-        rentalService.addRental(rental);
+        rentalRepository.save(rental);
         return ResponseEntity.ok(String.format("Rental %s saved successfully", rental));
     }
 
@@ -64,9 +59,9 @@ public class RentalController {
 
         StringBuilder response = new StringBuilder();
 
-        if (!rentalService.getRental(id).isPresent())
+        if (!rentalRepository.findById(id).isPresent())
             return ResponseEntity.badRequest().build();
-        Rental rental = rentalService.getRental(id).get();
+        Rental rental = rentalRepository.findById(id).get();
 
         if (updateData.getVehicle() != null) {
             rental.setVehicle(updateData.getVehicle());
@@ -118,7 +113,7 @@ public class RentalController {
             response.append(String.format("Rental review updated: %s\n", updateData.getReview()));
         }
 
-        rentalService.updateRental(rental);
+        rentalRepository.save(rental);
 
         return ResponseEntity.ok(response.toString());
     }
@@ -126,9 +121,9 @@ public class RentalController {
     @GetMapping("{id}/get-total-cost")
     public ResponseEntity<BigDecimal> getTotalCost(@PathVariable Integer id)
     {
-        if(rentalService.getRental(id).isPresent())
+        if(rentalRepository.findById(id).isPresent())
         {
-            return  ResponseEntity.ok(rentalService.getTotalCost(id));
+            return  ResponseEntity.ok(rentalRepository.findById(id).get().getTotalCost());
         }
         else
             return ResponseEntity.noContent().build();
@@ -137,9 +132,9 @@ public class RentalController {
     @GetMapping("{id}/get-rental-cost")
     public ResponseEntity<BigDecimal> getRentalCost(@PathVariable Integer id)
     {
-        if(rentalService.getRental(id).isPresent())
+        if(rentalRepository.findById(id).isPresent())
         {
-            return  ResponseEntity.ok(rentalService.getRentalCost(id));
+            return  ResponseEntity.ok(rentalRepository.findById(id).get().getRentalCost());
         }
         else
             return ResponseEntity.noContent().build();
@@ -148,9 +143,9 @@ public class RentalController {
     @PutMapping("{id}/make-payment")
     public void makePayment(@PathVariable Integer id, @RequestParam BigDecimal payment)
     {
-        if(rentalService.getRental(id).isPresent())
+        if(rentalRepository.findById(id).isPresent())
         {
-            rentalService.makePayment(id, payment);
+            rentalRepository.findById(id).get().makePayment(payment);
         }
         else
             return;ResponseEntity.noContent().build();
@@ -162,16 +157,12 @@ public class RentalController {
         if (review == null)
             return ResponseEntity.badRequest().build();
 
-        if (!rentalService.getRental(id).isPresent())
+        if (!rentalRepository.findById(id).isPresent())
             return ResponseEntity.badRequest().build();
 
-        Rental rental = rentalService.getRental(id).get();
-//
-//        if (rental.getReview() != null)
-//            return ResponseEntity.badRequest().build();
-
+        Rental rental = rentalRepository.findById(id).get();
         rental.setReview(review);
-        rentalService.updateRental(rental);
+        rentalRepository.save(rental);
 
         return ResponseEntity.ok(String.format("Review: %s for rental: %s saved successfully", review, rental));
     }

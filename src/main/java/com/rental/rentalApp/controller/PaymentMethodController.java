@@ -1,7 +1,7 @@
 package com.rental.rentalApp.controller;
 
 import com.rental.rentalApp.entities.*;
-import com.rental.rentalApp.services.*;
+import com.rental.rentalApp.repositories.PaymentMethodRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,24 +11,22 @@ import java.util.Optional;
 @RequestMapping("rental-app/api/payment-method")
 public class PaymentMethodController {
 
-    private final PaymentMethodService paymentMethodService;
+    private final PaymentMethodRepository paymentMethodRepository;
 
-    public PaymentMethodController(PaymentMethodService paymentMethodService) {
-        this.paymentMethodService = paymentMethodService;
+    public PaymentMethodController(PaymentMethodRepository paymentMethodRepository) {
+        this.paymentMethodRepository = paymentMethodRepository;
     }
 
     @GetMapping("get-payment-methods")
     public ResponseEntity<Iterable<PaymentMethod>> getPaymentMethods()
     {
-        return ResponseEntity.ok(paymentMethodService.getPaymentMethods());
+        return ResponseEntity.ok(paymentMethodRepository.findAll());
     }
 
     @GetMapping("{id}/get-payment-by-id")
     public ResponseEntity<PaymentMethod> getPaymentMethod(@PathVariable Integer id)
     {
-        Optional<PaymentMethod> optionalPaymentMethod = paymentMethodService.getPaymentMethodbyID(id);
-
-        System.out.println(optionalPaymentMethod);
+        Optional<PaymentMethod> optionalPaymentMethod = paymentMethodRepository.findById(id);
 
         if(optionalPaymentMethod.isPresent())
         {

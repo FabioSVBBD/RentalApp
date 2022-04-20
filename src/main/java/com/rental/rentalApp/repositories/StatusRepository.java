@@ -7,6 +7,5 @@ import java.util.List;
 
 public interface StatusRepository extends CrudRepository<Status,Integer> {
     Status findByStatus(String status);
-    Status findById(int StatusID);
     Status save(Status status);
 }
