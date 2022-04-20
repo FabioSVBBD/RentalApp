@@ -140,7 +140,7 @@ public class RentalController {
             return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("{id}/make-payment")
+    @PutMapping("{id}/pay")
     public void makePayment(@PathVariable Integer id, @RequestParam BigDecimal payment)
     {
         if(rentalRepository.findById(id).isPresent())
