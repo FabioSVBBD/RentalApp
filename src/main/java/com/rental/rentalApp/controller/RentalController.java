@@ -94,7 +94,7 @@ public class RentalController {
         }
 
         if (updateData.getPaymentMethod() != null) {
-            rental.setAPaymentMethod(updateData.getPaymentMethod());
+            rental.setPaymentMethod(updateData.getPaymentMethod());
             response.append(String.format("Rental payment method updated: %s\n", updateData.getPaymentMethod()));
         }
 

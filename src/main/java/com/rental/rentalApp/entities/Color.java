@@ -1,8 +1,11 @@
 package com.rental.rentalApp.entities;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
+@Data
 public class Color {
 
     @Id
@@ -12,20 +15,8 @@ public class Color {
     @Column(name = "ColorName")
     private String colorName;
 
-    protected Color() { }
-
-    public Color(String colorName) {
-      this.setColorName(colorName);
-  }
-
-  @Override
-  public String toString() {
-      return String.format("Color => ID: "+ ColorID +" ColorName: " + colorName);
-  }
-
-  public String getColorName() { return this.colorName; }
-
-  public void setColorName(String colorName) {
-      this.colorName = colorName;
+    @Override
+    public String toString() {
+      return String.format("Color => ID: "+ getColorID() +" ColorName: " + getColorName());
   }
 }
