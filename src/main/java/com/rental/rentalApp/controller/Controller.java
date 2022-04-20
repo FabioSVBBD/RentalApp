@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("rental-app/api/")
 public class Controller {
-    @GetMapping("home")
+  @GetMapping("home")
     public String Home() {
-        return "Welcome to Car Rental App!";
+      return "Welcome to Car Rental App!";
     }
 }

@@ -13,13 +13,6 @@ CREATE TABLE [Color] (
 );
 GO
 
-CREATE TABLE [Model] (
-  [ModelID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
-  [ModelName] [varchar](50) NOT NULL,
-  [Year] [INT] NOT NULL
-);
-GO
-
 CREATE TABLE [VehicleType] (
   [VehicleTypeID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
   [Type] [varchar](50) NOT NULL
@@ -29,6 +22,18 @@ GO
 CREATE TABLE [Brand] (
   [BrandID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
   [BrandName] [varchar](50) NOT NULL
+);
+GO
+
+CREATE TABLE [Model] (
+  [ModelID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
+  [ModelName] [varchar](50) NOT NULL,
+  [BrandID] [INT] NOT NULL,
+  [Year] [INT] NOT NULL,
+  
+  CONSTRAINT [FK_Model.BrandID]
+    FOREIGN KEY ([BrandID])
+      REFERENCES [Brand]([BrandID])
 );
 GO
 
@@ -121,7 +126,7 @@ CREATE TABLE [Rental] (
   [VehicleID] [INT] NOT NULL,
   [PaymentMethodID] [INT] NOT NULL,
   [StatusID] [INT] NOT NULL,
-  [ReviewID] [INT] NOT NULL,
+  [ReviewID] [INT] NULL,
   [Address] [varchar](500) NOT NULL,
   [StartDate] [DATETIME] NOT NULL,
   [EndDate] [DATETIME] NOT NULL,

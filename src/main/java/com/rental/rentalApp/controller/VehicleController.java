@@ -64,53 +64,53 @@ public class VehicleController {
   // Delete Vehicle
 	@DeleteMapping("{id}")
 	public ResponseEntity<String> deleteVehicle(@PathVariable Integer id, @RequestParam Optional<String> token) {
-		final String securityKey = "g2G7aoTyqQeDG4liY5ZmBAQr8V7M4v3BKSeUNd5u";
+    final String securityKey = "g2G7aoTyqQeDG4liY5ZmBAQr8V7M4v3BKSeUNd5u";
 
-		if (token.isPresent() && token.get().equals(securityKey)) {
-			Vehicle vehicle = vehicleRepository.findById(id).get();
-			vehicleRepository.deleteById(id);
+    if (token.isPresent() && token.get().equals(securityKey)) {
+      Vehicle vehicle = vehicleRepository.findById(id).get();
+      vehicleRepository.deleteById(id);
 
-			return ResponseEntity.ok(String.format("Deleted "+vehicle.getVIN()));
-		}
+      return ResponseEntity.ok(String.format("Deleted "+vehicle.getVIN()));
+    }
 
 		return ResponseEntity.badRequest().build();
 	}
 
 	// Get all vehicles
 	@GetMapping("")
-    ResponseEntity<List<Vehicle>> getAllVehicles(@RequestParam(required = false) Boolean available) {
-        
-		if( available != null){
-			return ResponseEntity.ok(vehicleRepository.findByAvailable(available));
-		}
-		
-		return ResponseEntity.ok(vehicleRepository.findAll());
-    }
+  ResponseEntity<List<Vehicle>> getAllVehicles(@RequestParam(required = false) Boolean available) {
+
+  if( available != null){
+    return ResponseEntity.ok(vehicleRepository.findByAvailable(available));
+  }
+
+    return ResponseEntity.ok(vehicleRepository.findAll());
+  }
 
 	// Add a new vehicle
 	@PostMapping("")
 	ResponseEntity<String> newVehicle(@RequestBody Vehicle newVehicle){
-		
+
 		if (newVehicle == null || vehicleRepository.findByVIN(newVehicle.getVIN()) != null) {
 			return ResponseEntity.badRequest().build();
 		}else{
 			vehicleRepository.save(newVehicle);
 		}
-		
+
 		return ResponseEntity.ok(String.format("Vehicle %s added", newVehicle.getVIN()));
 	}
 
    //  Single vehicle
-    @GetMapping("{id}")
-    ResponseEntity<Vehicle> getVehicle(@PathVariable int id) {
+  @GetMapping("{id}")
+  ResponseEntity<Vehicle> getVehicle(@PathVariable int id) {
 
-		Vehicle vehicle = vehicleRepository.findById(id).get();
+    Vehicle vehicle = vehicleRepository.findById(id).get();
 
-		if(vehicle == null){
-			return ResponseEntity.badRequest().build();
-		}
-
-		return ResponseEntity.ok(vehicle);
+    if(vehicle == null){
+      return ResponseEntity.badRequest().build();
     }
+
+    return ResponseEntity.ok(vehicle);
+  }
 
 }

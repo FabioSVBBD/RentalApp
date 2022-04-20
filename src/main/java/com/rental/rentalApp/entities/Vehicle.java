@@ -18,10 +18,6 @@ public class Vehicle {
     private String VIN;
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
-    @JoinColumn(name = "BrandID", nullable = false)
-    private Brand brand;
-
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "ModelID", nullable = false)
     private Model model;
 
@@ -62,10 +58,10 @@ public class Vehicle {
 
     @Override
     public String toString() {
-        return String.format("Vehicle [[ id = %d, VIN = %s, brand = [ %s ], model = [ %s ], vehicleType = [ %s ], color = [ %s ]," +
+        return String.format("Vehicle [[ id = %d, VIN = %s, model = [ %s ], vehicleType = [ %s ], color = [ %s ]," +
                         " numSeats: %d, dailyRate: %s, hourlyRate: %s, yearPurchased: %d, lastService: %s, transmission: %c," +
                         " mileage: %s, depositAmount: %s, available: %s ]]",
-                this.vehicleID, this.VIN, this.brand, this.model, this.vehicleType, this.color, this.numSeats, this.dailyRate,
+                this.vehicleID, this.VIN, this.model, this.vehicleType, this.color, this.numSeats, this.dailyRate,
                 this.hourlyRate, this.yearPurchased, this.lastService, this.transmission, this.mileage, this.depositAmount, this.available);
     }
 }

@@ -12,6 +12,10 @@ public class Model {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int modelID;
 
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    @JoinColumn(name = "BrandID", nullable = false)
+    private Brand brand;
+
     @Column(name = "ModelName")
     private String modelName;
 
