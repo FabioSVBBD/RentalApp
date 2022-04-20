@@ -22,6 +22,18 @@ public class ModelController {
     this.brandRepository = _brandRepository;
 	}
 
+  // Get Single Model
+  @GetMapping("{id}")
+  ResponseEntity<Model> getModel(@PathVariable int id) {
+    Model model = modelRepository.findById(id).get();
+
+    if(model == null){
+      return ResponseEntity.badRequest().build();
+    }
+
+    return ResponseEntity.ok(model);
+  }
+
   // Get all Models
 	@GetMapping("")
   ResponseEntity<List<Model>> getModels(@RequestParam(required = false) String brand, @RequestParam(required = false) Integer brandId) {
@@ -45,4 +57,15 @@ public class ModelController {
     }
     return ResponseEntity.ok(modelRepository.findAll());
   }
+
+  // New Model
+  @PostMapping("")
+	ResponseEntity<String> newModel(@RequestBody Model newModel){
+
+		if (newModel == null ) {
+			return ResponseEntity.badRequest().build();
+		}
+    modelRepository.save(newModel);
+		return ResponseEntity.ok(String.format("Model %s added", newModel.getModelName()));
+	}
 }
