@@ -6,5 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface StatusRepository extends CrudRepository<Status,Integer> {
-    List<Status> findByStatus(String status);
+    Status findByStatus(String status);
+    Status save(Status status);
 }

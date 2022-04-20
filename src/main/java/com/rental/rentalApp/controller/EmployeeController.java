@@ -16,9 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
-
 @RestController
-@RequestMapping("/rental-app/api/employees")
+@RequestMapping("rental-app/api/employees")
 public class EmployeeController {
 	
 	@Autowired
@@ -79,7 +78,7 @@ public class EmployeeController {
 	 @PostMapping("")
 	 public ResponseEntity<String> insertEmployee(@RequestParam("date") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate startDate, @RequestBody Employee employee ) {
 		 
-		 if (startDate == null  || employee == null  || employeeRepository.findByNumber(employee.getNumber()) != null ) {
+		 if (startDate == null  || employee == null  || employeeRepository.findByNumber(employee.getNumber()).size() != 0 ) {
 				return ResponseEntity.badRequest().build();
 		 }else {
 			 employee.setDateOfEmployment(startDate); 
