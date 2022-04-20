@@ -46,7 +46,7 @@ public class RentalController {
         else return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("add-rental")
+    @PostMapping("")
     public ResponseEntity<String> newRental(@RequestBody Rental rental)
     {
         if (rental == null) return ResponseEntity.badRequest().build();
@@ -54,7 +54,7 @@ public class RentalController {
         return ResponseEntity.ok(String.format("Rental %s saved successfully", rental));
     }
 
-    @PatchMapping("{id}/update-rental")
+    @PatchMapping("{id}")
     public ResponseEntity<String> patchRental(@PathVariable Integer id, @RequestBody Rental updateData) {
 
         StringBuilder response = new StringBuilder();
