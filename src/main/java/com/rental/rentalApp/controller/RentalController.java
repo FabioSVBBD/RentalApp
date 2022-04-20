@@ -31,7 +31,8 @@ public class RentalController {
         if (client != null) return ResponseEntity.ok(rentalRepository.findByClient(client));
         if (employee != null) return ResponseEntity.ok(rentalRepository.findByEmployee(employee));
         if (vehicle != null) return ResponseEntity.ok(rentalRepository.findByVehicle(vehicle));
-        else return ResponseEntity.ok(rentalRepository.findAll());
+        
+        return ResponseEntity.ok(rentalRepository.findAll());
     }
 
     @GetMapping("{id}")
