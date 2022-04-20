@@ -91,11 +91,10 @@ public class VehicleController {
 	@PostMapping("")
 	ResponseEntity<String> newVehicle(@RequestBody Vehicle newVehicle){
 
-		if (newVehicle == null || vehicleRepository.findByVIN(newVehicle.getVIN()) != null) {
+		if (newVehicle == null) {
 			return ResponseEntity.badRequest().build();
-		}else{
-			vehicleRepository.save(newVehicle);
 		}
+		vehicleRepository.save(newVehicle);
 
 		return ResponseEntity.ok(String.format("Vehicle %s added", newVehicle.getVIN()));
 	}

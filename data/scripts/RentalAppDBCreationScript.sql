@@ -40,7 +40,6 @@ GO
 CREATE TABLE [Vehicle] (
   [VehicleID] [INT] IDENTITY (1,1) NOT NULL PRIMARY KEY,
   [VIN] [VARCHAR](50) NOT NULL,
-  [BrandID] [INT] NOT NULL,
   [ModelID] [INT] NOT NULL,
   [VehicleTypeID] [INT] NOT NULL,
   [ColorID] [INT] NOT NULL,
@@ -53,10 +52,6 @@ CREATE TABLE [Vehicle] (
   [Mileage] DECIMAL(10, 2) NOT NULL,
   [DepositAmount] DECIMAL(10, 2) NOT NULL,
   [Available] [BIT] NOT NULL
-  
-  CONSTRAINT [FK_Vehicle.BrandID]
-    FOREIGN KEY ([BrandID])
-      REFERENCES [Brand]([BrandID]),
       
   CONSTRAINT [FK_Vehicle.ModelID]
     FOREIGN KEY ([ModelID])
