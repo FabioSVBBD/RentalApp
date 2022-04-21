@@ -91,6 +91,8 @@ public class ClientsController {
 			response.append(String.format("Number Updated: %s\n", updateData.getNumber()));
 		}
 
+		clients.save(updateData);
+
 		return ResponseEntity.ok(response.toString());
 	}
 
