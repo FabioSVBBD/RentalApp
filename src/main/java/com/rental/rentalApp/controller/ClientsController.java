@@ -56,10 +56,6 @@ public class ClientsController {
 			return ResponseEntity.badRequest().build();
 		}
 
-		if (clients.findByEmail(client.getEmail()) != null || clients.findByEmail(client.getNumber()) != null) {
-			return ResponseEntity.badRequest().build();
-		}
-
 		clients.save(client);
 
 		return ResponseEntity.ok(String.format("%s %s saved successfully", client.getName(), client.getSurname()));
