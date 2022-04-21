@@ -77,7 +77,7 @@ public class EmployeeController {
 			@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
 			@RequestBody Employee employee) {
 
-		if (startDate == null || employeeRepository.findByNumber(employee.getNumber()) != null) {
+		if (startDate == null || employeeRepository.findByNumber(employee.getNumber()).size() != 0) {
 			return ResponseEntity.badRequest().build();
 		} else {
 			employee.setDateOfEmployment(startDate);
