@@ -120,6 +120,8 @@ public class EmployeeController {
 			response.append(String.format("Number Updated: %s\n", updateEmployee.getNumber()));
 		}
 
+		employeeRepository.save(updateEmployee);
+
 		return ResponseEntity.ok(response.toString());
 	}
 
